@@ -22,16 +22,18 @@ func get_best_places(left, bottom, right, top float32) []string {
 func osm_get(left, bottom, right, top float64) {
 	resp, err := http.Get(fmt.Sprintf("https://api.openstreetmap.org/api/0.6/map.json?bbox=%v,%v,%v,%v", left, bottom, right, top))
 	if err != nil {
-		fmt.Println("ERROR RETRIEVING DATA: \n", err)
+		fmt.Println("Unable to retrieve map data: \n", err)
 	} else {
-		defer resp.Body.Close()
 
 		var body []byte
 		var err error
+
+		defer resp.Body.Close()
 		body, err = io.ReadAll(resp.Body)
+
 		fmt.Println(reflect.TypeOf(body))
 		if err != nil {
-			fmt.Println("ERROR READING BODY: \n", err)
+			fmt.Println("Unable to read body: \n", err)
 		}
 		err = os.WriteFile(fmt.Sprintf("map_%v_%v_%v_%v.json", left, bottom, right, top), body, 0666)
 		if err != nil {
