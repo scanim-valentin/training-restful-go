@@ -1,27 +1,28 @@
 package main
 
 import (
-	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
 )
 
-func index(writer http.ResponseWriter, request *http.Request) {
-	// Handles top-level page.
-	content, err := ioutil.ReadFile("html/index.html")
-	if err != nil {
-		fmt.Fprintf(writer, "error: %s", err)
-		log.Fatal(err)
-	} else {
-		fmt.Fprint(writer, string(content))
-	}
+var Port string = "8085"
+var Dir http.Dir
+
+// var err error
+
+/*
+func index(w http.ResponseWriter, r *http.Request) {
+	http.Redirect(w, r, "http://localhost:8080/static/index.html", http.StatusMovedPermanently)
 }
+*/
 
 func main() {
+	Dir = http.Dir("./static")
+	fileServer := http.FileServer(Dir)
+	http.Handle("/test", fileServer)
 	// Default handler
-	http.HandleFunc("/", index)
+	// http.HandleFunc("/", index)
 
 	// Starting the service
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":"+Port, nil))
 }
