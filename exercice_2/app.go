@@ -6,22 +6,18 @@ import (
 )
 
 var Port string = "8085"
-var Dir http.Dir
+var Dir http.Dir = http.Dir("./static")
+var Prefix string = "/public/"
 
-// var err error
-
-/*
 func index(w http.ResponseWriter, r *http.Request) {
-	http.Redirect(w, r, "http://localhost:8080/static/index.html", http.StatusMovedPermanently)
+	http.Redirect(w, r, "http://localhost:"+Port+Prefix+"index.html", http.StatusMovedPermanently)
 }
-*/
 
 func main() {
-	Dir = http.Dir("./static")
-	fileServer := http.FileServer(Dir)
-	http.Handle("/test", fileServer)
+	fileServer := http.StripPrefix(Prefix, http.FileServer(Dir))
+	http.Handle(Prefix, fileServer)
 	// Default handler
-	// http.HandleFunc("/", index)
+	http.HandleFunc("/", index)
 
 	// Starting the service
 	log.Fatal(http.ListenAndServe(":"+Port, nil))
