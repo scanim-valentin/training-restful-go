@@ -57,8 +57,7 @@ class Square extends React.Component {
                         console.log("SOMETHING WENT WRONG")
                         this.setState({ requestFailed: true })
                     }
-                })
-                
+                })                
 }
 
   class AddButton extends React.Component {

@@ -5,13 +5,14 @@ import (
 	"log"
 	"net/http"
 
+	_ "service/router"
+
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
+	_ "github.com/lib/pq"
 )
 
 var Port string = "3001"
-var Dir http.Dir = http.Dir("./static")
-var Prefix string = "/public/"
 
 var counter int = 0
 
@@ -20,6 +21,21 @@ func add(w http.ResponseWriter, r *http.Request) {
 	counter++
 	// TODO mutex to deal with concurrency
 	fmt.Fprintf(w, "%v", counter)
+}
+
+// Toggle online status for user
+func toggleOnlineStatus(w http.ResponseWriter, r *http.Request) {
+
+}
+
+// Registers a user with a username and a password
+func registerNewUser(w http.ResponseWriter, r *http.Request) {
+
+}
+
+// Registers a user with a username and a password
+func retreiveConversation(w http.ResponseWriter, r *http.Request) {
+
 }
 
 func main() {
