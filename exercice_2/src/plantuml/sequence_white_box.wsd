@@ -1,0 +1,75 @@
+@startuml  sequence_white_box 
+actor User
+
+actor "ReactJS frontend" as front
+box "RESTful go API"
+  participant  "Server" as server
+  participant "Utilities" as utils
+  participant "PostgreSQL database" as db
+
+end box
+
+== User connects to service ==
+User -> front ++ : Connects to frontend service
+  
+== Register or login phase ==
+  alt
+  User -> front++ : Register attempt as "name"
+    front -> server++ : [GET] .../getNewUserID?=name
+        server -> utils ++ : Register(w,r)
+            utils -> db ++  : INSERT INTO users (name, status) VALUES ("name", true) ;\n SELECT currval(pg_get_serial_sequence("users","id"));
+            db -> utils -- : 3265
+        utils -> server -- : "3265"
+    server -> front -- : "3265"
+  front -> User -- : Logged in
+  else
+  User -> front++ : Login attempt as user ID 3265
+    front -> server++ : [GET] .../login?=3265
+        server -> utils ++ : Login(w,r)
+            utils -> db ++  : UPDATE users SET status = true WHERE id = 3265;\n SELECT * FROM users;
+            db -> utils -- : user_list
+        utils -> server -- : user_list
+    server -> front -- : users.json
+  front -> User -- : List of other users
+  end
+
+== Start chatting session with user "other" == 
+  User --> front ++ : Select user "other" from list with id 3103
+    front -> server++ : [GET] .../select?=3103
+        server -> utils ++ : GetConversation(w,r)
+            utils -> db ++  : SELECT * FROM messages\nWHERE source = 3103 AND destination = 3265\nOR source = 3265 AND destination = 3103\nORDER BY time ACS;
+            db -> utils -- : message_list
+        utils -> server -- : message_list
+    server -> front -- : conversation.json
+  front -> User -- : Conversation with user "other"
+
+== User "user" sends message to user "other" == 
+  User --> front ++ : Sends "Hello" to user "other"
+    front -> server++ : [POST] .../SendMessage\nsource=3265&destination=3103&body=Hello
+        server -> server : time=time.Now()
+        server -> utils ++ : SendMessage(w,r)
+            utils -> db  : INSERT INTO messages (source, destination, body, time) VALUES (3265,3103,"Hello",time);\n SELECT currval(pg_get_serial_sequence("messages","id"));
+            db -> utils -- : 54
+        utils -> server -- : true
+    server -> front -- : 201 Created
+  front -> User -- : New message appears
+
+== User "user" sends message to user "other" == 
+  User --> front ++ : Sends "Hello" to user "other"
+    front -> server++ : [POST] .../SendMessage\nsource=3265&destination=3103&body=Hello
+        server -> server : time=time.Now()
+        server -> utils ++ : SendMessage(w,r)
+            utils -> db  : INSERT INTO messages (source, destination, body, time) VALUES (3265,3103,"Hello",time);\n SELECT currval(pg_get_serial_sequence("messages","id"));
+            db -> utils -- : 54
+        utils -> server -- : true
+    server -> front -- : [HTTP response status] 201 Created
+  front -> User -- : New message appears
+
+== User disconnects from service ==  
+User -> front : Disconnects from frontend service
+front -> server++ : [GET] .../Logout?=3265
+    front -> front -- : Disconnects
+    server -> utils ++ : Logout(w,r)
+        utils -> db  : UPDATE users SET status = false WHERE id = 3265;
+
+@enduml

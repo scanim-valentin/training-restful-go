@@ -13,9 +13,9 @@ var APIRouter *mux.Router = mux.NewRouter().StrictSlash(true)
 // Setup will define each endpoint accessible by the client.
 // Should be called before launching API on server side.
 func Setup() {
-	APIRouter.HandleFunc("/RegisterNewUser/", methods.Register)
-	APIRouter.HandleFunc("/LoginUser/", methods.Login)
-	APIRouter.HandleFunc("/RetrieveOnlineUserList/", methods.GetUserList)
-	APIRouter.HandleFunc("/RetrieveConversation/", methods.GetConversation)
-	APIRouter.HandleFunc("/AddMessageToConversation/", methods.AddMessageToConversation)
+	APIRouter.HandleFunc("/Register/", methods.Register)
+	APIRouter.HandleFunc("/Login/", methods.Login)
+	APIRouter.HandleFunc("/GetUserList/", methods.GetUserList)
+	APIRouter.HandleFunc("/GetConversation/", methods.GetConversation)
+	APIRouter.HandleFunc("/SendMessage/", methods.SendMessage)
 }

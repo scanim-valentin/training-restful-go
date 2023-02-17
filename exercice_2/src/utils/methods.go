@@ -44,6 +44,7 @@ func toggleOnlineStatus(username string) {
 
 // Registers a user with a username and a password
 func Register(w http.ResponseWriter, r *http.Request) {
+
 	// Unpacking request data
 	var data map[string]interface{}
 	err := json.NewDecoder(r.Body).Decode(&data)
@@ -75,6 +76,6 @@ func GetConversation(w http.ResponseWriter, r *http.Request) {
 }
 
 // Add a message to a conversation between two user from the database
-func AddMessageToConversation(w http.ResponseWriter, r *http.Request) {
+func SendMessage(w http.ResponseWriter, r *http.Request) {
 	//TODO
 }
