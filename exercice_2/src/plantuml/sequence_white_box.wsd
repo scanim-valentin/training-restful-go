@@ -17,7 +17,8 @@ User -> front ++ : Connects to frontend service
   User -> front++ : Register attempt as "name"
     front -> server++ : [GET] .../getNewUserID?=name
         server -> utils ++ : Register(w,r)
-            utils -> db ++  : INSERT INTO users (name, status) VALUES ("name", true) ;\n SELECT currval(pg_get_serial_sequence("users","id"));
+            utils -> utils : ip, port = getIP(r)
+            utils -> db ++  : INSERT INTO users (name, status) VALUES ("name", ip, port) ;\n SELECT currval(pg_get_serial_sequence("users","id"));
             db -> utils -- : 3265
         utils -> server -- : "3265"
     server -> front -- : "3265"
@@ -26,7 +27,8 @@ User -> front ++ : Connects to frontend service
   User -> front++ : Login attempt as user ID 3265
     front -> server++ : [GET] .../login?=3265
         server -> utils ++ : Login(w,r)
-            utils -> db ++  : UPDATE users SET status = true WHERE id = 3265;\n SELECT * FROM users;
+            utils -> utils : ip, port = getIP(r)
+            utils -> db ++  : UPDATE users SET ip = ip, port = port WHERE id = 3265;\n SELECT * FROM users;
             db -> utils -- : user_list
         utils -> server -- : user_list
     server -> front -- : users.json
@@ -54,11 +56,9 @@ User -> front ++ : Connects to frontend service
     server -> front -- : 201 Created
   front -> User -- : New message appears
 
-== User "user" sends message to user "other" == 
-  User --> front ++ : Sends "Hello" to user "other"
-    front -> server++ : [POST] .../SendMessage\nsource=3265&destination=3103&body=Hello
-        server -> server : time=time.Now()
-        server -> utils ++ : SendMessage(w,r)
+== User "other" sends message to user "user" == 
+        ''TODO
+        server -> utils ++ : Update(w,r)
             utils -> db  : INSERT INTO messages (source, destination, body, time) VALUES (3265,3103,"Hello",time);\n SELECT currval(pg_get_serial_sequence("messages","id"));
             db -> utils -- : 54
         utils -> server -- : true

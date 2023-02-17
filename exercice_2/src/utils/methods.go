@@ -79,3 +79,12 @@ func GetConversation(w http.ResponseWriter, r *http.Request) {
 func SendMessage(w http.ResponseWriter, r *http.Request) {
 	//TODO
 }
+
+// https://blog.golang.org/context/userip/userip.go
+func getIP(req *http.Request, _ httprouter.Params) (net.IP, int) {
+	ip, port, err := net.SplitHostPort(req.RemoteAddr)
+	if err != nil {
+		fmt.Printf("Error getIP: ", err)
+	}
+	return net.ParseIP(ip), int(port)
+}

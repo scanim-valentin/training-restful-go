@@ -15,7 +15,8 @@ entity users{
     __
     name : string
     password : [254]byte
-    status : bool
+    address : IP
+    port: int
 }
 
 
