@@ -53,23 +53,22 @@ User -> front ++ : Connects to frontend service
             utils -> db  : INSERT INTO messages (source, destination, body, time) VALUES (3265,3103,"Hello",time);\n SELECT currval(pg_get_serial_sequence("messages","id"));
             db -> utils -- : 54
         utils -> server -- : true
-    server -> front -- : 201 Created
-  front -> User -- : New message appears
-
-== User "other" sends message to user "user" == 
-        ''TODO
-        server -> utils ++ : Update(w,r)
-            utils -> db  : INSERT INTO messages (source, destination, body, time) VALUES (3265,3103,"Hello",time);\n SELECT currval(pg_get_serial_sequence("messages","id"));
-            db -> utils -- : 54
-        utils -> server -- : true
     server -> front -- : [HTTP response status] 201 Created
   front -> User -- : New message appears
+
+== User "other" sends message "Hi!" to user "user" ==
+        server -> db ++ : SELECT ip, port FROM users WHERE id = 3265;
+        db -> server -- : user_ip, user_port
+        alt not( net.user_ip.isUnspecified() )
+        server -> front ++ : [POST] .../SendMessage\nsource=3103&destination=3265&body=Hi!
+      front -> User : New message appears\n(if current chatting session is with user "other") 
+        end
 
 == User disconnects from service ==  
 User -> front : Disconnects from frontend service
 front -> server++ : [GET] .../Logout?=3265
     front -> front -- : Disconnects
     server -> utils ++ : Logout(w,r)
-        utils -> db  : UPDATE users SET status = false WHERE id = 3265;
+        utils -> db  : UPDATE users SET ip = 0.0.0.0 and port = 0 WHERE id = 3265;
 
 @enduml
