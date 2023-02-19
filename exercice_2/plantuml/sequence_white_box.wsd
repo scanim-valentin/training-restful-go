@@ -9,6 +9,7 @@ box "RESTful go API"
 
 end box
 
+note over User, front : Note: Frontend is served by a service based on ReactJS (server-side and client-side)\nThis service is not represented here as an actor because its sole purpose is\nto provide the client to the user's browser\nThe In-Browser ReactJS frontend actor regroups server-side and client-side\nBut JS code is exectued client-side, so it should be the client address that is sent\nto the DB and not the frontend server address
 == User connects to service ==
 User -> front ++ : Connecting to frontend service\nCharging view and ReactJS
   
