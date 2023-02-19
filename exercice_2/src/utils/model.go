@@ -1,7 +1,5 @@
 // Package 'model' regroups the different data structures used within the API
-package main
-
-import "fmt"
+package utils
 
 type UserID int64
 type MessageBody string
@@ -31,8 +29,8 @@ func MessageInit(source UserID, destination UserID, content *MessageBody) *Messa
 	return &Message{source, destination, content}
 }
 */
-
+/*
 func main() {
 	fmt.Printf("%v", *(UserInit(5585, "Tricotin", true)))
 	fmt.Printf("%v", *(MessageInit(5585, 5586, "Saperlotte")))
-}
+}*/

@@ -5,7 +5,8 @@ import (
 	"log"
 	"net/http"
 
-	router "service/router"
+	router "service/server"
+	"service/utils"
 
 	"github.com/gorilla/handlers"
 	_ "github.com/lib/pq"
@@ -25,6 +26,10 @@ func add(w http.ResponseWriter, r *http.Request) {
 func main() {
 	// Setting up routes
 	router.Setup()
+
+	//Setting up database
+	utils.Setup()
+	defer utils.Close()
 
 	//CORS
 	headersOk := handlers.AllowedHeaders([]string{"X-Requested-With"})

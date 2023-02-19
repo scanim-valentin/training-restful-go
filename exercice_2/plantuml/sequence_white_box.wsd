@@ -19,7 +19,7 @@ User -> front ++ : Connecting to frontend service\nCharging view and ReactJS
     front -> server++ : [GET] .../getNewUserID?=name
         server -> utils ++ : Register(w,r)
             utils -> utils : ip, port = getIP(r)
-            utils -> db ++  : INSERT INTO users (name, status) VALUES ("name", ip, port) ;\n SELECT currval(pg_get_serial_sequence("users","id"));
+            utils -> db ++  : INSERT INTO users (name, ip, port) VALUES ("name", ip, port) ;\n SELECT currval(pg_get_serial_sequence("users","id"));
             db -> utils -- : 3265
         utils -> server -- : "3265"
     server -> front -- : "3265"
