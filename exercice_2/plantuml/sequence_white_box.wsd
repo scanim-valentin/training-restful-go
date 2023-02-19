@@ -1,7 +1,7 @@
 @startuml  sequence_white_box 
 actor User
 
-actor "ReactJS frontend" as front
+actor "In-Browser ReactJS frontend" as front
 box "RESTful go API"
   participant  "Server" as server
   participant "Utilities" as utils
@@ -10,7 +10,7 @@ box "RESTful go API"
 end box
 
 == User connects to service ==
-User -> front ++ : Connects to frontend service
+User -> front ++ : Connecting to frontend service\nCharging view and ReactJS
   
 == Register or login phase ==
   alt
