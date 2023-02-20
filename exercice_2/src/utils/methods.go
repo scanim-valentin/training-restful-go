@@ -3,7 +3,6 @@ package utils
 
 import (
 	"database/sql"
-	"encoding/json"
 	"fmt"
 	"log"
 	"net"
@@ -20,21 +19,25 @@ var db_connect string = fmt.Sprintf("postgresql://%s:%s@%s/%s?sslmode=disable", 
 var db *sql.DB = nil
 var db_name string = "postgres"
 
+// Net complement
+var ip_unspecified net.IP = net.IPv4(0, 0, 0, 0)
+
 /*
 * Setup (connect to database)
  */
 func Setup() {
-	db, err := sql.Open("postgres", db_connect)
+	var err error
+	db, err = sql.Open("postgres", db_connect)
 	if err != nil {
 		log.Fatal(err)
 	}
 	fmt.Println("Successfully connected to ", db_connect)
-	_, err = db.Exec("CREATE TABLE IF NOT EXISTS users ( username text, ip cidr, port smallint )")
+	_, err = db.Exec("CREATE TABLE IF NOT EXISTS users (id serial primary key, username text, ip inet, port int )")
 	if err != nil {
 		log.Fatal(err)
 	}
 	fmt.Println("Successfully created or detected table 'user'")
-	_, err = db.Exec("CREATE TABLE IF NOT EXISTS messages ( source integer, destination integer, content text )")
+	_, err = db.Exec("CREATE TABLE IF NOT EXISTS messages (id serial primary key, source integer, destination integer, content text )")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -49,11 +52,6 @@ func Close() {
 	fmt.Println("Successfully disconnected from ", db_connect)
 }
 
-// Toggle online status for user
-func toggleOnlineStatus(username string) {
-
-}
-
 /*
 * Routable methods
  */
@@ -61,24 +59,36 @@ func toggleOnlineStatus(username string) {
 // Registers a user with a username and save ip and port
 func Register(w http.ResponseWriter, r *http.Request) {
 
-	// Unpacking request data
-	var data map[string]interface{}
-	err := json.NewDecoder(r.Body).Decode(&data)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(data["form"])
-
-	// TODO : check if user exists
-	_, err = db.Exec(fmt.Sprintf("ALTER DATABASE %s INSER TABLE  %s_history", db_name))
+	// Extracting Data
+	values := r.URL.Query()
+	fmt.Println("Registering new user with name ", values["name"][0])
+	ip, port := getIP(r)
+	fmt.Println("Extracted IP from request ", ip, port)
+	// SQL Queries
+	var id int
+	err := db.QueryRow(fmt.Sprintf("INSERT INTO users (username, ip, port) VALUES ('%s', '%s', '%s') RETURNING id", values["name"][0], ip, port)).Scan(&id)
 	if err != nil {
 		log.Fatal(err)
 	}
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Registered new user with name ", values["name"][0], "and ID ", id)
+	fmt.Fprintf(w, "%v", id)
 }
 
 // Login a user with a username and save ip and port
 func Login(w http.ResponseWriter, r *http.Request) {
-	//TODO
+	// Extracting Data
+	values := r.URL.Query()
+	fmt.Println("Login in user with ID ", values["id"][0])
+	ip, port := getIP(r)
+	fmt.Println("Extracted IP from request ", ip, port)
+	// SQL Queries
+	_, err := db.Exec(fmt.Sprintf("UPDATE users SET ip = '%s', port = %s WHERE id = %s", ip, port, values["id"][0]))
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 // Retrieve online user list
@@ -97,20 +107,23 @@ func SendMessage(w http.ResponseWriter, r *http.Request) {
 }
 
 // https://blog.golang.org/context/userip/userip.go
-func getIP(req *http.Request) (net.IP, int) {
-	ip, port_str, err := net.SplitHostPort(req.RemoteAddr)
+func getIP(req *http.Request) (net.IP, string) {
+	ip, port, err := net.SplitHostPort(req.RemoteAddr)
 	if err != nil {
-		fmt.Printf("Error getIP: ", err)
-	}
-	var port int
-	_, err = fmt.Sscanf(port_str, "%d", &port)
-	if err != nil {
-		log.Fatal(err)
+		log.Panic("Error getIP: ", err)
 	}
 	return net.ParseIP(ip), port
 }
 
 // Logout a user: replaces ip and port by unspecified and 0
 func Logout(w http.ResponseWriter, r *http.Request) {
-	//TODO
+	// Extracting Data
+	values := r.URL.Query()
+	fmt.Println("Login out user with ID ", values["id"][0])
+	// SQL Queries
+	_, err := db.Exec(fmt.Sprintf("UPDATE users SET ip = '%s' WHERE id = %s", ip_unspecified, values["id"][0]))
+	if err != nil {
+		log.Fatal(err)
+	}
+
 }
