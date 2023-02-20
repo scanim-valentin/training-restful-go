@@ -3,6 +3,7 @@ package utils
 
 import (
 	"database/sql"
+	"encoding/json"
 	"fmt"
 	"log"
 	"net"
@@ -52,6 +53,43 @@ func Close() {
 	fmt.Println("Successfully disconnected from ", db_connect)
 }
 
+// Retrieve online user list
+func getUserList() []User {
+	// SQL Queries
+	rows, err := db.Query("SELECT * FROM users")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer rows.Close()
+
+	var users []User
+
+	// Reading rows
+	for rows.Next() {
+		var user User
+		var ip_aux string
+		if err := rows.Scan(&user.ID, &user.Name, &ip_aux, &user.Port); err != nil {
+			return users
+		}
+		user.IP = net.ParseIP(ip_aux)
+		users = append(users, user)
+	}
+
+	if err = rows.Err(); err != nil {
+		log.Panic(err)
+	}
+	return users
+}
+
+// https://blog.golang.org/context/userip/userip.go
+func getIP(req *http.Request) (net.IP, string) {
+	ip, port, err := net.SplitHostPort(req.RemoteAddr)
+	if err != nil {
+		log.Panic("Error getIP: ", err)
+	}
+	return net.ParseIP(ip), port
+}
+
 /*
 * Routable methods
  */
@@ -73,8 +111,10 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
+	// Parsing result
 	fmt.Println("Registered new user with name ", values["name"][0], "and ID ", id)
-	fmt.Fprintf(w, "%v", id)
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(LoginResponse{UserID(id), getUserList()})
 }
 
 // Login a user with a username and save ip and port
@@ -89,30 +129,55 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
-}
-
-// Retrieve online user list
-func GetUserList(w http.ResponseWriter, r *http.Request) {
-	//TODO
+	// Retrieving user list
+	users := getUserList()
+	for _, user := range users {
+		fmt.Print(user)
+	}
+	// Parsing result
+	w.Header().Set("Content-Type", "application/json")
+	var id UserID
+	if _, err := fmt.Sscanf(values["id"][0], "%d", &id); err != nil {
+		log.Panic(err)
+	}
+	json.NewEncoder(w).Encode(LoginResponse{id, getUserList()})
 }
 
 // Retrieve conversation between two user from the database and toggle online status for this user
 func GetConversation(w http.ResponseWriter, r *http.Request) {
-	//TODO
+	// Extracting Data
+	values := r.URL.Query()
+	user, other := values["user"][0], values["user"][1]
+	fmt.Println("User ", user, " selected user ", other)
+	// SQL Queries
+	rows, err := db.Query(fmt.Sprintf("SELECT * FROM messages WHERE source = %s AND destination = %s OR source = %s AND destination = %s ", user, other, other, user))
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer rows.Close()
+
+	var messages []Message
+
+	// Reading rows
+	for rows.Next() {
+		var message Message
+		var ip_aux string
+		if err := rows.Scan(&message.ID, &message.Source, &message.Destination, &message.Body); err != nil {
+			break
+		}
+		user.IP = net.ParseIP(ip_aux)
+		messages = append(messages, messages)
+	}
+
+	if err = rows.Err(); err != nil {
+		log.Panic(err)
+	}
+	return users
 }
 
 // Add a message to a conversation between two user from the database
 func SendMessage(w http.ResponseWriter, r *http.Request) {
 	//TODO
-}
-
-// https://blog.golang.org/context/userip/userip.go
-func getIP(req *http.Request) (net.IP, string) {
-	ip, port, err := net.SplitHostPort(req.RemoteAddr)
-	if err != nil {
-		log.Panic("Error getIP: ", err)
-	}
-	return net.ParseIP(ip), port
 }
 
 // Logout a user: replaces ip and port by unspecified and 0

@@ -37,6 +37,7 @@ func main() {
 	methodsOk := handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS", "DELETE"})
 
 	// Starting server
+	fmt.Println("Starting server on port ", Port)
 	handler := handlers.CORS(originsOk, headersOk, methodsOk)(router.APIRouter)
 	log.Fatal(http.ListenAndServe(":"+Port, handler))
 }

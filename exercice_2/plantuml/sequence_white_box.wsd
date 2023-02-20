@@ -38,7 +38,7 @@ User -> front ++ : Connecting to frontend service\nCharging view and ReactJS
 
 == Start chatting session with user "other" == 
   User --> front ++ : Select user "other" from list with id 3103
-    front -> server++ : [GET] .../select?=3103
+    front -> server++ : [GET] .../select?user=3265&other=3103
         server -> utils ++ : GetConversation(w,r)
             utils -> db ++  : SELECT * FROM messages\nWHERE source = 3103 AND destination = 3265\nOR source = 3265 AND destination = 3103\nORDER BY time ACS;
             db -> utils -- : message_list
