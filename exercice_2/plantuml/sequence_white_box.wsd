@@ -19,11 +19,13 @@ User -> front ++ : Connecting to frontend service\nCharging view and ReactJS
     front -> server++ : [GET] .../getNewUserID?=name
         server -> utils ++ : Register(w,r)
             utils -> utils : ip, port = getIP(r)
-            utils -> db ++  : INSERT INTO users (name, ip, port) VALUES ("name", ip, port) ;\n SELECT currval(pg_get_serial_sequence("users","id"));
+            utils -> db ++  : INSERT INTO users (name, ip, port) VALUES ("name", ip, port) RETURNING id;
             db -> utils -- : 3265
-        utils -> server -- : "3265"
-    server -> front -- : "3265"
-  front -> User -- : Logged in
+            utils -> db ++  : SELECT * FROM users;
+            db -> utils -- : user_list
+        utils -> server -- : LoginResponse{3265, user_list}
+    server -> front -- : [JSON] LoginResponse{3265, user_list}
+  front -> User -- : List of other users
   else
   User -> front++ : Login attempt as user ID 3265
     front -> server++ : [GET] .../login?=3265
@@ -31,8 +33,8 @@ User -> front ++ : Connecting to frontend service\nCharging view and ReactJS
             utils -> utils : ip, port = getIP(r)
             utils -> db ++  : UPDATE users SET ip = ip, port = port WHERE id = 3265;\n SELECT * FROM users;
             db -> utils -- : user_list
-        utils -> server -- : user_list
-    server -> front -- : users.json
+        utils -> server -- : LoginResponse{3265, user_list}
+    server -> front -- : [JSON] LoginResponse{3265, user_list}
   front -> User -- : List of other users
   end
 
@@ -41,9 +43,9 @@ User -> front ++ : Connecting to frontend service\nCharging view and ReactJS
     front -> server++ : [GET] .../select?user=3265&other=3103
         server -> utils ++ : GetConversation(w,r)
             utils -> db ++  : SELECT * FROM messages\nWHERE source = 3103 AND destination = 3265\nOR source = 3265 AND destination = 3103\nORDER BY time ACS;
-            db -> utils -- : message_list
-        utils -> server -- : message_list
-    server -> front -- : conversation.json
+            db -> utils -- : rows
+        utils -> server -- : Conversation{3265,3103,message_list}
+    server -> front -- : [JSON] Conversation{3265,3103,message_list}
   front -> User -- : Conversation with user "other"
 
 == User "user" sends message to user "other" == 
@@ -51,9 +53,9 @@ User -> front ++ : Connecting to frontend service\nCharging view and ReactJS
     front -> server++ : [POST] .../SendMessage\nsource=3265&destination=3103&body=Hello
         server -> server : time=time.Now()
         server -> utils ++ : SendMessage(w,r)
-            utils -> db  : INSERT INTO messages (source, destination, body, time) VALUES (3265,3103,"Hello",time);\n SELECT currval(pg_get_serial_sequence("messages","id"));
+            utils -> db  : INSERT INTO messages (source, destination, body, time) VALUES (3265,3103,"Hello",time) RETURNING id;
             db -> utils -- : 54
-        utils -> server -- : true
+        utils -> server -- : nil
     server -> front -- : [HTTP response status] 201 Created
   front -> User -- : New message appears
 
@@ -67,7 +69,7 @@ User -> front ++ : Connecting to frontend service\nCharging view and ReactJS
 
 == User disconnects from service ==  
 User -> front : Disconnects from frontend service
-front -> server++ : [GET] .../Logout?=3265
+front -> server++ : [GET] .../Logout?id=3265
     front -> front -- : Disconnects
     server -> utils ++ : Logout(w,r)
         utils -> db  : UPDATE users SET ip = 0.0.0.0 and port = 0 WHERE id = 3265;

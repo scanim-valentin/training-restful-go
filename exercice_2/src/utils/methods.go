@@ -147,32 +147,40 @@ func Login(w http.ResponseWriter, r *http.Request) {
 func GetConversation(w http.ResponseWriter, r *http.Request) {
 	// Extracting Data
 	values := r.URL.Query()
-	user, other := values["user"][0], values["user"][1]
-	fmt.Println("User ", user, " selected user ", other)
+	userstr, otherstr := values["user"][0], values["user"][1]
+	fmt.Println("User ", userstr, " selected user ", otherstr)
 	// SQL Queries
-	rows, err := db.Query(fmt.Sprintf("SELECT * FROM messages WHERE source = %s AND destination = %s OR source = %s AND destination = %s ", user, other, other, user))
+	rows, err := db.Query(fmt.Sprintf("SELECT * FROM messages WHERE source = %s AND destination = %s OR source = %s AND destination = %s ORDER BY time ASC", userstr, otherstr, otherstr, userstr))
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer rows.Close()
 
-	var messages []Message
+	var message_bodies []MessageBody
 
 	// Reading rows
 	for rows.Next() {
-		var message Message
-		var ip_aux string
-		if err := rows.Scan(&message.ID, &message.Source, &message.Destination, &message.Body); err != nil {
+		var message MessageBody
+		if err := rows.Scan(&message.Content, &message.Time); err != nil {
 			break
 		}
-		user.IP = net.ParseIP(ip_aux)
-		messages = append(messages, messages)
+		message_bodies = append(message_bodies, message)
 	}
 
 	if err = rows.Err(); err != nil {
 		log.Panic(err)
 	}
-	return users
+
+	// Parsing result
+	var user, other UserID
+	w.Header().Set("Content-Type", "application/json")
+	if _, err := fmt.Sscanf(values["id"][0], "%d", &user); err != nil {
+		log.Panic(err)
+	}
+	if _, err := fmt.Sscanf(values["id"][0], "%d", &other); err != nil {
+		log.Panic(err)
+	}
+	json.NewEncoder(w).Encode(Conversation{user, other, message_bodies})
 }
 
 // Add a message to a conversation between two user from the database
