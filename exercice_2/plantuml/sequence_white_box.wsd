@@ -16,7 +16,7 @@ User -> front ++ : Connecting to frontend service\nCharging view and ReactJS
 == Register or login phase ==
   alt
   User -> front++ : Register attempt as "name"
-    front -> server++ : [GET] .../getNewUserID?=name
+    front -> server++ : [GET] .../register?name=name
         server -> utils ++ : Register(w,r)
             utils -> utils : ip, port = getIP(r)
             utils -> db ++  : INSERT INTO users (name, ip, port) VALUES ("name", ip, port) RETURNING id;
@@ -28,7 +28,7 @@ User -> front ++ : Connecting to frontend service\nCharging view and ReactJS
   front -> User -- : List of other users
   else
   User -> front++ : Login attempt as user ID 3265
-    front -> server++ : [GET] .../login?=3265
+    front -> server++ : [GET] .../Login?id=3265
         server -> utils ++ : Login(w,r)
             utils -> utils : ip, port = getIP(r)
             utils -> db ++  : UPDATE users SET ip = ip, port = port WHERE id = 3265;\n SELECT * FROM users;
@@ -40,7 +40,7 @@ User -> front ++ : Connecting to frontend service\nCharging view and ReactJS
 
 == Start chatting session with user "other" == 
   User --> front ++ : Select user "other" from list with id 3103
-    front -> server++ : [GET] .../select?user=3265&other=3103
+    front -> server++ : [GET] .../Select?user=3265&other=3103
         server -> utils ++ : GetConversation(w,r)
             utils -> db ++  : SELECT * FROM messages\nWHERE source = 3103 AND destination = 3265\nOR source = 3265 AND destination = 3103\nORDER BY time ACS;
             db -> utils -- : rows

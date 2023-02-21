@@ -108,9 +108,6 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	if err != nil {
-		log.Fatal(err)
-	}
 	// Parsing result
 	fmt.Println("Registered new user with name ", values["name"][0], "and ID ", id)
 	w.Header().Set("Content-Type", "application/json")
@@ -185,7 +182,20 @@ func GetConversation(w http.ResponseWriter, r *http.Request) {
 
 // Add a message to a conversation between two user from the database
 func SendMessage(w http.ResponseWriter, r *http.Request) {
-	//TODO
+	// Extracting Data
+	decoder := json.NewDecoder(r.Body)
+	var message Message
+	err := decoder.Decode(&message)
+	if err != nil {
+		log.Panic(err)
+	}
+
+	// SQL Queries
+	// err = db.QueryRow(fmt.Sprintf("INSERT INTO messages (, ip, port) VALUES ('%s', '%s', '%s') RETURNING id", values["name"][0], ip, port)).Scan(&id)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 }
 
 // Logout a user: replaces ip and port by unspecified and 0
