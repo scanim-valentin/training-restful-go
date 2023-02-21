@@ -9,6 +9,7 @@ import (
 	"net"
 	"net/http"
 
+	"github.com/lib/pq"
 	_ "github.com/lib/pq"
 )
 
@@ -38,7 +39,7 @@ func Setup() {
 		log.Fatal(err)
 	}
 	fmt.Println("Successfully created or detected table 'user'")
-	_, err = db.Exec("CREATE TABLE IF NOT EXISTS messages (id serial primary key, source integer, destination integer, content text )")
+	_, err = db.Exec("CREATE TABLE IF NOT EXISTS messages (id serial primary key, source integer, destination integer, content text, time timestamp )")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -181,6 +182,7 @@ func GetConversation(w http.ResponseWriter, r *http.Request) {
 }
 
 // Add a message to a conversation between two user from the database
+
 func SendMessage(w http.ResponseWriter, r *http.Request) {
 	// Extracting Data
 	decoder := json.NewDecoder(r.Body)
@@ -191,11 +193,20 @@ func SendMessage(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// SQL Queries
-	// err = db.QueryRow(fmt.Sprintf("INSERT INTO messages (, ip, port) VALUES ('%s', '%s', '%s') RETURNING id", values["name"][0], ip, port)).Scan(&id)
+	var id MessageID
+	err = db.QueryRow(fmt.Sprintf("INSERT INTO messages (source, destination, content, time) VALUES ('%v', '%v', '%s', '%v') RETURNING id", message.Source, message.Destination, message.Body.Content, string(pq.FormatTimestamp(message.Body.Time)))).Scan(&id)
 	if err != nil {
-		log.Fatal(err)
+		// Message was not created
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(err)
+		log.Print(err)
+	} else {
+		// Success in creating new message
+		w.WriteHeader(http.StatusCreated)
+		// Parsing result
+		fmt.Fprintf(w, "%v", id)
 	}
-
 }
 
 // Logout a user: replaces ip and port by unspecified and 0

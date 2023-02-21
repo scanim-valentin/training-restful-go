@@ -12,16 +12,8 @@ import (
 	_ "github.com/lib/pq"
 )
 
+// Port
 var Port string = "3001"
-
-var counter int = 0
-
-func add(w http.ResponseWriter, r *http.Request) {
-
-	counter++
-	// TODO mutex to deal with concurrency
-	fmt.Fprintf(w, "%v", counter)
-}
 
 func main() {
 	// Setting up routes
