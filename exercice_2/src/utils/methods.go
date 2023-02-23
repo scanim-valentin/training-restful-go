@@ -10,7 +10,6 @@ import (
 	"net/http"
 
 	"github.com/lib/pq"
-	_ "github.com/lib/pq"
 )
 
 // DB management
@@ -100,14 +99,15 @@ func Register(w http.ResponseWriter, r *http.Request) {
 
 	// Extracting Data
 	values := r.URL.Query()
-	fmt.Println("Registering new user with name ", values["name"][0])
+	fmt.Println("Registering new user with name", values["name"][0])
 	ip, port := getIP(r)
 	fmt.Println("Extracted IP from request ", ip, port)
 	// SQL Queries
 	var id int
-	err := db.QueryRow(fmt.Sprintf("INSERT INTO users (username, ip, port) VALUES ('%s', '%s', '%s') RETURNING id", values["name"][0], ip, port)).Scan(&id)
+
+	err := db.QueryRow("INSERT INTO users (username, ip, port) VALUES ($1, $2, $3) RETURNING id", values["name"][0], ip.String(), fmt.Sprint(port)).Scan(&id)
 	if err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 	}
 	// Parsing result
 	fmt.Println("Registered new user with name ", values["name"][0], "and ID ", id)
@@ -123,7 +123,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	ip, port := getIP(r)
 	fmt.Println("Extracted IP from request ", ip, port)
 	// SQL Queries
-	_, err := db.Exec(fmt.Sprintf("UPDATE users SET ip = '%s', port = %s WHERE id = %s", ip, port, values["id"][0]))
+	_, err := db.Exec("UPDATE users SET ip = $1, port = $2 WHERE id = $3", ip.String(), fmt.Sprint(port), values["id"][0])
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -148,7 +148,7 @@ func GetConversation(w http.ResponseWriter, r *http.Request) {
 	userstr, otherstr := values["user"][0], values["user"][1]
 	fmt.Println("User ", userstr, " selected user ", otherstr)
 	// SQL Queries
-	rows, err := db.Query(fmt.Sprintf("SELECT * FROM messages WHERE source = %s AND destination = %s OR source = %s AND destination = %s ORDER BY time ASC", userstr, otherstr, otherstr, userstr))
+	rows, err := db.Query("SELECT * FROM messages WHERE source = $1 AND destination = $2 OR source = $2 AND destination = $1 ORDER BY time ASC", userstr, otherstr)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -194,7 +194,8 @@ func SendMessage(w http.ResponseWriter, r *http.Request) {
 
 	// SQL Queries
 	var id MessageID
-	err = db.QueryRow(fmt.Sprintf("INSERT INTO messages (source, destination, content, time) VALUES ('%v', '%v', '%s', '%v') RETURNING id", message.Source, message.Destination, message.Body.Content, string(pq.FormatTimestamp(message.Body.Time)))).Scan(&id)
+	err = db.QueryRow("INSERT INTO messages (source, destination, content, time) VALUES ($1, $2, $3, $3) RETURNING id",
+		fmt.Sprint(message.Source), fmt.Sprint(message.Destination), message.Body.Content, string(pq.FormatTimestamp(message.Body.Time))).Scan(&id)
 	if err != nil {
 		// Message was not created
 		w.WriteHeader(http.StatusInternalServerError)
@@ -215,7 +216,7 @@ func Logout(w http.ResponseWriter, r *http.Request) {
 	values := r.URL.Query()
 	fmt.Println("Login out user with ID ", values["id"][0])
 	// SQL Queries
-	_, err := db.Exec(fmt.Sprintf("UPDATE users SET ip = '%s' WHERE id = %s", ip_unspecified, values["id"][0]))
+	_, err := db.Exec("UPDATE users SET ip = $1 WHERE id = $2", ip_unspecified.String(), values["id"][0])
 	if err != nil {
 		log.Fatal(err)
 	}

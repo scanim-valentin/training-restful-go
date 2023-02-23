@@ -56,18 +56,16 @@ function SwitchableForm(props) {
   )
   const [selectedLabel, setSelectedLabel] = useState(labels[0])
   const forms = Object.assign({}, ...props.elements.map(
-    (element) => ({[element.label]: element.form})
-    ));
-  
+    (element) => ({ [element.label]: element.form })
+  ));
+
   const switchMode = (label) => {
     setSelectedLabel(label)
-    console.log("Switched to " + label)
-    console.log(forms[label])
   }
 
   return (
     <div>
-      <RadioSelectList labels={labels} onChange={switchMode} defaultOption={selectedLabel}/>
+      <RadioSelectList labels={labels} onChange={switchMode} defaultOption={selectedLabel} />
       <div>
         {
           forms[selectedLabel]
@@ -77,27 +75,103 @@ function SwitchableForm(props) {
   )
 }
 
-function ConnectionFrame() {
+/**
+ * Hook to dynamically switch from one screen to another
+ * @param {map} props Should have:
+ * - currentElement: current element label to be rendered 
+ * - elements: array of structure: 
+ *  'label': string
+ *  'frame': frame
+ */
+function SwitchableFrame(props) {
+  const currentLabel = props.currentElement
+  const forms = Object.assign({}, ...props.elements.map(
+    (element) => ({ [element.label]: element.frame })
+  ));
+
+  return (
+    <div>
+      <div>
+        {
+          forms[currentLabel]
+        }
+      </div>
+    </div>
+  )
+}
+
+/*******CLIENT*********/
+/**
+ * A form to sign in
+ */
+
+function FormSignIn(props) {
+  const onSubmitHandler = props.onSubmit
+  const [IDInput, setIDInput] = useState("00000")
+  
+  const handleSignIn = () => {
+    fetch('http://localhost:3001/login?id=' + IDInput)
+      .then(response => response.json())
+      .then(data => onSubmitHandler({
+        'ID': data.ID,
+        'UserList': data.UserList
+      }))
+  }
+  const handleChangeInput = (event) => {
+    setIDInput(event.target.value)
+  }
+  return (
+    <form>
+      <label htmlFor="usernameinput"> ID </label>
+      <input type="text" id="usernamefield" value={IDInput} onChange={handleChangeInput} /> <br />
+      <input type="button" id="signin_submit" value="Sign In" onClick={handleSignIn} />
+    </form>
+  )
+}
+
+/**
+ * A form to sign 
+ * DON'T: hacked','6.6.6.6','666'),('hacked2','::1','666'),('hackedagain
+ */
+function FormSignUp(props) {
+  const onSubmitHandler = props.onSubmit
+  const [nameInput, setNameInput] = useState("Empty")
+  
+  const handleSignUp = () => {
+    // HTTP Query
+    fetch('http://localhost:3001/register?name=' + nameInput)
+      .then(response => response.json() )
+      .then(data => onSubmitHandler({
+        'ID': data.ID,
+        'UserList': data.UserList
+      }))
+  }
+
+  const handleChangeInput = (event) => {
+    setNameInput(event.target.value)
+  }
+
+  return (
+    <form>
+      <label htmlFor="idinput"> Username </label>
+      <input type="text" id="idfield" value={nameInput} onChange={handleChangeInput} /><br />
+      <input type="button" id="signup_submit" value="Sign up" onClick={handleSignUp} />
+    </form>
+  )
+}
+
+function ConnectionFrame(props) {
+  const SwitchToChat = props.onSubmit
   const elements = [
-    {'label' : 'Sign In',
-    'form' : <form>
-      <label htmlFor="usernameinput"> Username </label>
-      <input type="text" id="usernamefield" /> <br />
-      <input type="submit" id="signin_submit" value="Sign In" />
-    </form> },
-    {'label': 'Sign Up',
-    'form': <form>
-      <label htmlFor="idinput"> ID </label>
-      <input type="text" id="ID" /> <br />
-      <input type="submit" id="signup_submit" value="Sign Up" />
-    </form>},
-    {'label': 'Other option',
-    'form': <form>
-      <label htmlFor="other"> Other </label>
-      <input type="text" id="ID" /> <br />
-      <input type="submit" id="other_submit" value="Other" />
-    </form>}
-    ]
+    {
+      'label': 'Sign In',
+      'form': <FormSignIn onSubmit={SwitchToChat} />
+    },
+    {
+      'label': 'Sign Up',
+      'form': <FormSignUp onSubmit={SwitchToChat} />
+    }
+  ]
 
   return (
     <div className="ConnectionFrame">
@@ -106,11 +180,56 @@ function ConnectionFrame() {
   )
 }
 
+
+function ChatFrame(props) {
+
+  const selectListElements = props.UserList.map(
+    (element) => ({
+      'label': [element.ID],
+      'form': <textarea value={"You're talking to "+element.ID}/>
+    }))
+  return (
+    <div>
+      <b>PLEASE SELECT YOUR FRIEND</b>
+      <SwitchableForm elements = {selectListElements} />
+    </div>
+  )
+  
+
+}
+
+function App() {
+  const [currentElement, setCurrentElement] = useState('Login')
+  const [UserList, setUserlist] = useState({})
+  const switchToChat = (props) => {
+    setUserlist(props.UserList)
+    console.log(props)
+    setCurrentElement('Chat')
+  }
+
+  const elements = [
+    {
+      'label': 'Login',
+      'frame': <ConnectionFrame onSubmit={switchToChat} />
+    },
+    {
+      'label': 'Chat',
+      'frame': <ChatFrame UserList={UserList}/>
+    }
+  ]
+
+  return (
+    <div>
+      <SwitchableFrame elements={elements} currentElement={currentElement} />
+    </div>
+  )
+}
+
 class UI extends React.Component {
   render() {
     return (
       <div className="ui">
-        <ConnectionFrame />
+        <App />
       </div>
     );
   }
