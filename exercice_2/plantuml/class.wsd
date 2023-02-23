@@ -1,25 +1,32 @@
 @startuml  class 
 
 ' time + source_id (foreign) + destination_id (foreign) could be a primary key
-entity messages{
-    message_id : int64
-    __
-    time : Time
-    source_id : user_id
-    destination_id : user_id
-    content : string
+struct Message{
+    ID : MessageID
+    Source : UserID
+    Destination : UserID
+    Body : MessageBody
 }
 
-entity users{
-    user_id : int64
-    __
-    name : string
-    password : [254]byte
-    address : IP
+struct MessageBody{
+    Time : time.Time
+    Content : MessageContent
+}
+
+struct User{
+    ID : UserID
+    Name : string
+    IP : net.IP
     port: int
 }
 
+struct Conversation{
+    User : UserID
+    Other : UserID
+    MessageBodies : []MessageBody
+}
 
-messages "0..*" -- "2" users
+Conversation --o "0..*" MessageBody
+Message --o "1" MessageBody
 
 @enduml

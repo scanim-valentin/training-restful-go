@@ -1,0 +1,25 @@
+@startuml db_class 
+
+' time + source_id (foreign) + destination_id (foreign) could be a primary key
+entity messages{
+    message_id : int64
+    __
+    time : Time
+    source_id : user_id
+    destination_id : user_id
+    content : string
+}
+
+entity users{
+    user_id : int64
+    __
+    name : string
+    password : [254]byte
+    address : IP
+    port: int
+}
+
+
+messages "0..*" -- "2" users
+
+@enduml
