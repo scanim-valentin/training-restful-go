@@ -1,3 +1,4 @@
+// TODO: Move this in database
 // Package 'model' regroups the different data structures used within the API
 package utils
 
@@ -28,13 +29,8 @@ type User struct {
 type Message struct {
 	ID                  MessageID
 	Source, Destination UserID
-	Body                MessageBody
-}
-
-// A message body contains the message content and the time at which it was sent
-type MessageBody struct {
-	Content MessageContent
-	Time    time.Time
+	Content             MessageContent
+	Time                time.Time
 }
 
 /*JSON-aimed structs*/
@@ -47,6 +43,5 @@ type LoginResponse struct {
 
 // Conversation response is returned to select HTTP requests
 type Conversation struct {
-	User, Other   UserID
-	MessageBodies []MessageBody
+	Messages []Message
 }

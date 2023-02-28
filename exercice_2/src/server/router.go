@@ -28,7 +28,8 @@ func Setup() {
 	APIRouter.
 		Methods("GET").
 		Path("/select").
-		Queries("id", "{id}").
+		Queries("user", "{user}").
+		Queries("other", "{other}").
 		HandlerFunc(utils.GetConversation)
 
 	// Should also be implemented on client

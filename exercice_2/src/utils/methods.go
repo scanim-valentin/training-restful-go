@@ -102,13 +102,14 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Registering new user with name", values["name"][0])
 	ip, port := getIP(r)
 	fmt.Println("Extracted IP from request ", ip, port)
+
 	// SQL Queries
 	var id int
-
 	err := db.QueryRow("INSERT INTO users (username, ip, port) VALUES ($1, $2, $3) RETURNING id", values["name"][0], ip.String(), fmt.Sprint(port)).Scan(&id)
 	if err != nil {
 		log.Panic(err)
 	}
+
 	// Parsing result
 	fmt.Println("Registered new user with name ", values["name"][0], "and ID ", id)
 	w.Header().Set("Content-Type", "application/json")
@@ -145,57 +146,53 @@ func Login(w http.ResponseWriter, r *http.Request) {
 func GetConversation(w http.ResponseWriter, r *http.Request) {
 	// Extracting Data
 	values := r.URL.Query()
-	userstr, otherstr := values["user"][0], values["user"][1]
-	fmt.Println("User ", userstr, " selected user ", otherstr)
+	userstr, otherstr := values["user"][0], values["other"][0]
+	fmt.Print(userstr, otherstr)
 	// SQL Queries
 	rows, err := db.Query("SELECT * FROM messages WHERE source = $1 AND destination = $2 OR source = $2 AND destination = $1 ORDER BY time ASC", userstr, otherstr)
 	if err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 	}
 	defer rows.Close()
-
-	var message_bodies []MessageBody
+	var messages []Message
 
 	// Reading rows
 	for rows.Next() {
-		var message MessageBody
-		if err := rows.Scan(&message.Content, &message.Time); err != nil {
+		var message Message
+		fmt.Print(rows)
+		if err := rows.Scan(&message.ID, &message.Source, &message.Destination, &message.Content, &message.Time); err != nil {
 			break
 		}
-		message_bodies = append(message_bodies, message)
+		messages = append(messages, message)
 	}
-
+	fmt.Print(messages)
 	if err = rows.Err(); err != nil {
 		log.Panic(err)
 	}
 
 	// Parsing result
-	var user, other UserID
-	w.Header().Set("Content-Type", "application/json")
-	if _, err := fmt.Sscanf(values["id"][0], "%d", &user); err != nil {
+	if err = json.NewEncoder(w).Encode(Conversation{messages}); err != nil {
 		log.Panic(err)
 	}
-	if _, err := fmt.Sscanf(values["id"][0], "%d", &other); err != nil {
-		log.Panic(err)
-	}
-	json.NewEncoder(w).Encode(Conversation{user, other, message_bodies})
+	fmt.Print(Conversation{messages})
 }
 
 // Add a message to a conversation between two user from the database
-
 func SendMessage(w http.ResponseWriter, r *http.Request) {
 	// Extracting Data
 	decoder := json.NewDecoder(r.Body)
+
 	var message Message
 	err := decoder.Decode(&message)
+
 	if err != nil {
 		log.Panic(err)
 	}
-
+	fmt.Print(message)
 	// SQL Queries
 	var id MessageID
-	err = db.QueryRow("INSERT INTO messages (source, destination, content, time) VALUES ($1, $2, $3, $3) RETURNING id",
-		fmt.Sprint(message.Source), fmt.Sprint(message.Destination), message.Body.Content, string(pq.FormatTimestamp(message.Body.Time))).Scan(&id)
+	err = db.QueryRow("INSERT INTO messages (source, destination, content, time) VALUES ($1, $2, $3, $4) RETURNING id",
+		fmt.Sprint(message.Source), fmt.Sprint(message.Destination), message.Content, string(pq.FormatTimestamp(message.Time))).Scan(&id)
 	if err != nil {
 		// Message was not created
 		w.WriteHeader(http.StatusInternalServerError)

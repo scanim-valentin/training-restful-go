@@ -16,7 +16,7 @@ func TestSend(t *testing.T) {
 	Setup()
 
 	// Formating JSON
-	message := Message{0, 3, 4, MessageBody{"HELLO WORLD", time.Now()}}
+	message := Message{MessageID(1), UserID(1), UserID(2), MessageContent("HELLO WORLD"), time.Now()}
 
 	jsonenc := new(bytes.Buffer)
 	json.NewEncoder(jsonenc).Encode(message)
