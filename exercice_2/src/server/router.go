@@ -2,9 +2,8 @@
 package server
 
 import (
-	"service/utils"
-
 	"github.com/gorilla/mux"
+	"service/service"
 )
 
 // Router of the API (not setup yet)
@@ -17,31 +16,31 @@ func Setup() {
 		Methods("GET").
 		Path("/register").
 		Queries("name", "{name}").
-		HandlerFunc(utils.Register)
+		HandlerFunc(service.Register)
 
 	APIRouter.
 		Methods("GET").
 		Path("/login").
 		Queries("id", "{id}").
-		HandlerFunc(utils.Login)
+		HandlerFunc(service.Login)
 
 	APIRouter.
 		Methods("GET").
 		Path("/select").
 		Queries("user", "{user}").
 		Queries("other", "{other}").
-		HandlerFunc(utils.GetConversation)
+		HandlerFunc(service.GetConversation)
 
 	// Should also be implemented on client
 	APIRouter.
 		Methods("POST").
 		Path("/send").
-		HandlerFunc(utils.SendMessage)
+		HandlerFunc(service.SendMessage)
 
 	APIRouter.
 		Methods("GET").
 		Path("/logout").
 		Queries("id", "{id}").
-		HandlerFunc(utils.Logout)
+		HandlerFunc(service.Logout)
 
 }

@@ -89,10 +89,10 @@ function ConnectionFrame(props) {
 
 
 /**
- * @param {
- * - {obj} destination : { {string} ID, {string} name} 
+ * - {obj} destination : { {string} ID, {string} name}
  * - {string} source : source ID
- * } props 
+ * } props
+ * @param props
  */
 function ChatArea(props) {
 
@@ -138,6 +138,7 @@ function ChatArea(props) {
     setMessage(new database.Message(0, sourceid, destination.id, event.target.value))
   }
 
+
   const [init_conv, setConv] = useState([])
   useEffect(() => {
     /*For some reasons this is necessary to reset the state values when switching from one user to another*/
@@ -168,6 +169,19 @@ function ChatArea(props) {
 }
 
 function ChatFrame(props) {
+
+  useEffect(() => {
+    const handleTabClose = () => {
+      fetch('http://' + IP + ':' + Port + '/logout?id=' + props.sourceid)
+    };
+
+    window.addEventListener('beforeunload', handleTabClose);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleTabClose);
+    };
+  }, [props.sourceid]);
+
 
   const users = Object.assign({}, ...props.UserList.map(
     (user) => ({ [user.ID]: { 'label': user.Name, 'form': < ChatArea destination={{ 'id': user.ID, 'name': user.Name }} sourceid={props.sourceid} /> } })
@@ -208,17 +222,18 @@ function App() {
   )
 }
 
-class UI extends React.Component {
-  render() {
+function UI () {
+
     return (
       <div className="ui">
         <App />
       </div>
     );
-  }
 }
+
 
 // ========================================
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
 root.render(<UI />);

@@ -4,15 +4,13 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-
-	router "service/server"
-	"service/utils"
+	"service/database"
 
 	"github.com/gorilla/handlers"
 	_ "github.com/lib/pq"
+	router "service/server"
 )
 
-// Port
 var Port string = "3001"
 
 func main() {
@@ -20,8 +18,8 @@ func main() {
 	router.Setup()
 
 	//Setting up database
-	utils.Setup()
-	defer utils.Close()
+	database.Setup()
+	defer database.Close()
 
 	//CORS
 	headersOk := handlers.AllowedHeaders([]string{"Content-Types"})
