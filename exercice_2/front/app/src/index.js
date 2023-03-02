@@ -6,6 +6,11 @@ import * as database from './database.js'
 const IP = 'localhost'
 const Port = '3001'
 const CreatedStatusCode = 201
+
+/**
+ * select call rate to update conversation (ms)
+ */
+const RefreshRate = 250
 /*******CLIENT*********/
 /**
  * A form to sign in
@@ -20,6 +25,7 @@ function FormSignIn(props) {
       .then(response => response.json())
       .then(data => onSubmitHandler({
         'ID': data.ID,
+        'Username': data.Username,
         'UserList': data.UserList
       }))
   }
@@ -49,6 +55,7 @@ function FormSignUp(props) {
       .then(response => response.json())
       .then(data => onSubmitHandler({
         'ID': data.ID,
+        'Username': data.Username,
         'UserList': data.UserList
       }))
   }
@@ -85,12 +92,8 @@ function ConnectionFrame(props) {
   )
 }
 
-
-
-
 /**
- * - {obj} destination : { {string} ID, {string} name}
- * - {string} source : source ID
+ * - {array} messages
  * } props
  * @param props
  */
@@ -103,7 +106,8 @@ function ChatArea(props) {
       <div className='Conversation'>
         {messages.map((value, index) =>
           <div key={index}>
-            {value.Content}
+            <small>{value.Time}</small><br/>
+            <b>{value.Source.toString() === props.userid.toString() ?  props.destination.name : props.source.name }    </b>{value.Content}
           </div>
         )}
       </div>
@@ -113,7 +117,7 @@ function ChatArea(props) {
   const [message, setMessage] = useState({})
   const [newconversation, setNewConversation] = useState([])
   const destination = props.destination
-  const sourceid = props.sourceid
+  const source = props.source
 
   const handleSend = () => {
     if (message.Content) {
@@ -135,7 +139,7 @@ function ChatArea(props) {
     }
   }
   const handleOnChange = (event) => {
-    setMessage(new database.Message(0, sourceid, destination.id, event.target.value))
+    setMessage(new database.Message(0, source.id, destination.id, event.target.value))
   }
 
 
@@ -145,22 +149,25 @@ function ChatArea(props) {
     setMessage({})
     setNewConversation([])
     setConv([])
+    
+    const interval = setInterval ( () => { 
     // HTTP request
-    fetch('http://' + IP + ':' + Port + '/select?user=' + sourceid + '&other=' + destination.id)
+    fetch('http://' + IP + ':' + Port + '/select?user=' + source.id + '&other=' + destination.id)
       .then(response => response.json())
       .then(data => {
         if (data.Messages !== null) {
           setConv(data.Messages)
         }
-      }
-      )
-  }, [destination, sourceid])
+      })
+    }, RefreshRate)
+    return () => clearInterval(interval);
+  }, [destination, source])
 
   return (
     <div className='ChatArea'>
       <b>You're talking to {destination.name}</b> <br />
       <div>
-        <Conversation messages={init_conv.concat(newconversation)} sourceid={sourceid} destination={destination} />
+        <Conversation userid={props.userid} messages={/*init_conv.concat(newconversation)*/ init_conv} source={source} destination={destination} />
       </div>
       <textarea onChange={handleOnChange} defaultValue="" />
       <input type="button" value=">" onClick={handleSend} />
@@ -184,7 +191,7 @@ function ChatFrame(props) {
 
 
   const users = Object.assign({}, ...props.UserList.map(
-    (user) => ({ [user.ID]: { 'label': user.Name, 'form': < ChatArea destination={{ 'id': user.ID, 'name': user.Name }} sourceid={props.sourceid} /> } })
+    (user) => ({ [user.ID]: { 'label': user.Name, 'form': < ChatArea userid={user.ID} destination={{ 'id': user.ID, 'name': user.Name }} source={ {'id': props.source.id, 'name': props.source.name } } /> } })
   ));
   return (
     <div>
@@ -198,9 +205,11 @@ function App() {
   const [currentElement, setCurrentElement] = useState('Login')
   const [UserList, setUserlist] = useState({})
   const [UserID, setUserID] = useState({})
+  const [Username, setUsername] = useState("undefined username")
   const switchToChat = (props) => {
     setUserlist(props.UserList)
     setUserID(props.ID)
+    setUsername(props.Username)
     setCurrentElement('Chat')
   }
 
@@ -211,7 +220,7 @@ function App() {
     },
     {
       'label': 'Chat',
-      'frame': <ChatFrame UserList={UserList} sourceid={UserID} />
+      'frame': <ChatFrame UserList={UserList} source={ {'id': UserID, 'name': Username }} />
     }
   ]
 

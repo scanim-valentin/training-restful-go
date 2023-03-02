@@ -28,7 +28,7 @@ User -> front ++ : Connecting to frontend service\nCharging view and ReactJS
   front -> User -- : List of other users
   else
   User -> front++ : Login attempt as user ID 3265
-    front -> server++ : [GET] .../Login?id=3265
+    front -> server++ : [GET] .../login?id=3265
         server -> utils ++ : Login(w,r)
             utils -> utils : ip, port = getIP(r)
             utils -> db ++  : UPDATE users SET ip = ip, port = port WHERE id = 3265;\n SELECT * FROM users;
@@ -40,7 +40,7 @@ User -> front ++ : Connecting to frontend service\nCharging view and ReactJS
 
 == Start chatting session with user "other" == 
   User --> front ++ : Select user "other" from list with id 3103
-    front -> server++ : [GET] .../Select?user=3265&other=3103
+    front -> server++ : [GET] .../select?user=3265&other=3103
         server -> utils ++ : GetConversation(w,r)
             utils -> db ++  : SELECT * FROM messages\nWHERE source = 3103 AND destination = 3265\nOR source = 3265 AND destination = 3103\nORDER BY time ACS;
             db -> utils -- : rows
@@ -50,7 +50,7 @@ User -> front ++ : Connecting to frontend service\nCharging view and ReactJS
 
 == User "user" sends message to user "other" == 
   User --> front ++ : Sends "Hello" to user "other"
-    front -> server++ : [POST] .../SendMessage\nsource=3265&destination=3103&body=Hello
+    front -> server++ : [POST] .../send\nsource=3265&destination=3103&body=Hello
         server -> server : time=time.Now()
         server -> utils ++ : SendMessage(w,r)
             utils -> db  : INSERT INTO messages (source, destination, body, time) VALUES (3265,3103,"Hello",time) RETURNING id;
@@ -59,17 +59,20 @@ User -> front ++ : Connecting to frontend service\nCharging view and ReactJS
     server -> front -- : [HTTP response status] 201 Created
   front -> User -- : New message appears
 
-== User "other" sends message "Hi!" to user "user" ==
-        server -> db ++ : SELECT ip, port FROM users WHERE id = 3265;
-        db -> server -- : user_ip, user_port
-        alt not( net.user_ip.isUnspecified() )
-        server -> front ++ : [POST] .../SendMessage\nsource=3103&destination=3265&body=Hi!
-      front -> User : New message appears\n(if current chatting session is with user "other") 
-        end
-
+== User "user" periodically check for new messages from user "other" ==
+note over front, db : Note: This is the easiest way to handle continuous conversation between two clients and could be greatly improved in the future by adding last message ID as a parameter to the "select" service so that only new messages are retrieved. A more complicated and non-RESTful\nsolution would be to manage chatting sessions with websockets.   
+loop
+  front -> server++ : [GET] .../select?source=3265&destination=3103
+      server -> utils ++ : GetConversation(w,r)
+            utils -> db ++  : SELECT * FROM messages\nWHERE source = 3103 AND destination = 3265\nOR source = 3265 AND destination = 3103\nORDER BY time ACS;
+            db -> utils -- : rows
+        utils -> server -- : Conversation{3265,3103,message_list}
+    server -> front -- : [JSON] Conversation{3265,3103,message_list}
+  front -> User -- : Updated conversation with user "other"
+end
 == User disconnects from service ==  
 User -> front : Disconnects from frontend service
-front -> server++ : [GET] .../Logout?id=3265
+front -> server++ : [GET] .../logout?id=3265
     front -> front -- : Disconnects
     server -> utils ++ : Logout(w,r)
         utils -> db  : UPDATE users SET ip = 0.0.0.0 and port = 0 WHERE id = 3265;
