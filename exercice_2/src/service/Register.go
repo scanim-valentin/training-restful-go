@@ -18,7 +18,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Extracted IP from request ", ip, port)
 
 	// SQL Queries
-	id := database.InsertNewUser(values["name"][0], ip, port)
+	id := database.NewUser(values["name"][0], ip, port)
 
 	// Parsing result
 	fmt.Println("Registered new user with name ", values["name"][0], "and ID ", id)

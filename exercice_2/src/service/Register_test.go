@@ -34,7 +34,7 @@ func (suite *RegisterTestSuite) SetupTest() {
 
 		// Populating
 		if k < nbLoginUser {
-			database.InsertNewUser(newUser.Name, newUser.IP, fmt.Sprint(newUser.Port))
+			database.NewUser(newUser.Name, newUser.IP, fmt.Sprint(newUser.Port))
 
 		}
 	}

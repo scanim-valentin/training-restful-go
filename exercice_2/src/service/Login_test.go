@@ -33,7 +33,7 @@ func (suite *LoginTestSuite) SetupTest() {
 		suite.loginResponse.UserList = append(suite.loginResponse.UserList, newUser)
 
 		// Populating
-		database.InsertNewUser(newUser.Name, newUser.IP, fmt.Sprint(newUser.Port))
+		database.NewUser(newUser.Name, newUser.IP, fmt.Sprint(newUser.Port))
 	}
 
 	suite.loginResponse.ID = database.UserID(rand.Intn(nbLoginUser) + 1)
