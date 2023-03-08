@@ -5,10 +5,10 @@ import (
 	"log"
 	"net/http"
 	"service/database"
+	router "service/server"
 
 	"github.com/gorilla/handlers"
 	_ "github.com/lib/pq"
-	router "service/server"
 )
 
 var Port string = "3001"

@@ -3,9 +3,11 @@ package database
 import (
 	"database/sql"
 	"fmt"
-	"github.com/lib/pq"
 	"log"
+	"service/utils"
 	"time"
+
+	"github.com/lib/pq"
 )
 
 // MessageID Unique message identifier
@@ -59,4 +61,16 @@ func NewMessage(source UserID, destination UserID, content MessageContent, time 
 	err := DB.QueryRow("INSERT INTO messages (source, destination, content, time) VALUES ($1, $2, $3, $4) RETURNING id",
 		fmt.Sprint(source), fmt.Sprint(destination), content, string(pq.FormatTimestamp(time))).Scan(&id)
 	return id, err
+}
+
+/**/
+
+func RandomMessage(id MessageID, source UserID, destination UserID, nbMaxChar int) Message {
+	return Message{
+		ID:          id,
+		Source:      source,
+		Destination: destination,
+		Content:     MessageContent(utils.RandomString(nbMaxChar)),
+		Time:        time.Now().UTC().Round(time.Millisecond),
+	}
 }

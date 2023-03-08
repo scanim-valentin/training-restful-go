@@ -21,9 +21,11 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	if _, err := fmt.Sscanf(values["id"][0], "%d", &id); err != nil {
 		log.Panic(err)
 	}
-	name := database.LoginUser(ip, port, id)
-	// Parsing result
-	w.Header().Set("Content-Type", "application/json")
-
-	json.NewEncoder(w).Encode(database.LoginResponse{ID: id, Username: name, UserList: database.GetUserList()})
+	if namePtr := database.LoginUser(ip, port, id); namePtr != nil {
+		// Parsing result
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(database.LoginResponse{ID: id, Username: string(*namePtr), UserList: database.GetUserList()})
+	} else {
+		w.WriteHeader(http.StatusNotFound)
+	}
 }

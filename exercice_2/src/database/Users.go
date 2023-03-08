@@ -37,19 +37,26 @@ func InsertNewUser(name string, ip net.IP, port string) UserID {
 	return id
 }
 
-func LoginUser(ip net.IP, port string, id UserID) string {
-	var name string
-	err := DB.QueryRow("UPDATE users SET ip = $1, port = $2 WHERE id = $3 RETURNING username", ip.String(), fmt.Sprint(port), id).Scan(&name)
-	if err != nil {
-		log.Fatal(err)
+func LoginUser(ip net.IP, port string, id UserID) *[]byte {
+	name := make([]byte, 0)
+
+	switch err := DB.QueryRow("UPDATE users SET ip = $1, port = $2 WHERE id = $3 RETURNING username", ip.String(), fmt.Sprint(port), id).Scan(&name); err {
+	case nil:
+		break // gross
+	case sql.ErrNoRows:
+		return nil
+	default:
+		log.Fatal("Unhandled error from database: ", err)
 	}
-	return name
+	return &name
 }
 
 // GetUserList Retrieve online user list
 func GetUserList() []User {
 	// SQL Queries
-	rows, err := DB.Query("SELECT * FROM users")
+	// Order must be specified to match test specification
+	// There is no default order (see https://stackoverflow.com/questions/6585574/postgres-default-sort-by-id-worldship "Rows are returned in an unspecified order")
+	rows, err := DB.Query("SELECT * FROM users ORDER BY id")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -104,5 +111,14 @@ func SetStatusOffline(id UserID) {
 	_, err := DB.Exec("UPDATE users SET ip = $1 WHERE id = $2", utils.IPUnspecified.String(), id)
 	if err != nil {
 		log.Fatal(err)
+	}
+}
+
+func RandomUser(id UserID, nbMaxChar int) User {
+	return User{
+		ID:   id,
+		Name: string(utils.RandomString(nbMaxChar)),
+		IP:   net.IPv4(1, 1, 1, 1),
+		Port: 1111,
 	}
 }

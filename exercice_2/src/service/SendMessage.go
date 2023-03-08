@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"service/database"
+	"time"
 )
 
 // SendMessage Add a message to a conversation between two user from the database
@@ -15,7 +16,7 @@ func SendMessage(w http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(r.Body)
 	var message database.Message
 	err := decoder.Decode(&message)
-
+	message.Time = message.Time.Truncate(time.Millisecond)
 	if err != nil {
 		log.Panic(err)
 	}

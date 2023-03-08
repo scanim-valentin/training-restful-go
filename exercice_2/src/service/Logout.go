@@ -18,5 +18,4 @@ func Logout(w http.ResponseWriter, r *http.Request) {
 		log.Panic(err)
 	}
 	database.SetStatusOffline(id)
-
 }
