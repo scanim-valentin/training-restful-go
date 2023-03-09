@@ -20,7 +20,7 @@ func GetConversation(w http.ResponseWriter, r *http.Request) {
 		log.Panic(err)
 	}
 	messages := database.GetMessages(user, other)
-	fmt.Print(messages)
+	// fmt.Println(messages)
 
 	// Parsing result
 	if err := json.NewEncoder(w).Encode(database.Conversation{Messages: messages}); err != nil {

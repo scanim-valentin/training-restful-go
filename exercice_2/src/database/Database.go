@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
+	_ "github.com/lib/pq"
 	"log"
 	"os"
 )
@@ -20,7 +21,7 @@ func Setup() {
 // Close should be called before closing service */
 func Close() {
 	if err := DB.Close(); err != nil {
-		log.Fatal()
+		log.Fatal("Fatal: Failed to close database:", DB)
 	}
 	fmt.Println("Successfully disconnected from database")
 }
@@ -37,16 +38,14 @@ func ConnectDB(path string) {
 	fmt.Println(json.Valid(content))
 	// Now let's unmarshall the data into `payload`
 	payload := map[string]string{}
-	fmt.Print(payload)
 	err = json.Unmarshal(content, &payload)
 	if err != nil {
 		log.Fatal("Error during Unmarshal(): ", err)
 	}
-	fmt.Print(payload)
 	connect := fmt.Sprintf("postgresql://%s:%s@%s/%s?sslmode=disable", payload["username"], payload["password"], payload["ip"], payload["name"])
 	DB, err = sql.Open("postgres", connect)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("Error while opening DB: ", err)
 	}
 	fmt.Println("Successfully connected to ", connect)
 	_, err = DB.Exec("CREATE TABLE IF NOT EXISTS users (id serial primary key, username text, ip inet, port int )")

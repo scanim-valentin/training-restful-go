@@ -2,12 +2,9 @@ package database
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 	"service/utils"
 	"time"
-
-	"github.com/lib/pq"
 )
 
 // MessageID Unique message identifier
@@ -38,7 +35,7 @@ func GetMessages(user UserID, other UserID) []Message {
 	defer func(rows *sql.Rows) {
 		err := rows.Close()
 		if err != nil {
-
+			log.Panic("Failed to close rows in GetMessage: ", err)
 		}
 	}(rows)
 	var messages []Message
@@ -46,7 +43,6 @@ func GetMessages(user UserID, other UserID) []Message {
 	// Reading rows
 	for rows.Next() {
 		var message Message
-		fmt.Print(rows)
 		if err := rows.Scan(&message.ID, &message.Source, &message.Destination, &message.Content, &message.Time); err != nil {
 			break
 		}
@@ -59,7 +55,7 @@ func GetMessages(user UserID, other UserID) []Message {
 func NewMessage(source UserID, destination UserID, content MessageContent, time time.Time) (MessageID, error) {
 	var id MessageID
 	err := DB.QueryRow("INSERT INTO messages (source, destination, content, time) VALUES ($1, $2, $3, $4) RETURNING id",
-		fmt.Sprint(source), fmt.Sprint(destination), content, string(pq.FormatTimestamp(time))).Scan(&id)
+		source, destination, content, time).Scan(&id)
 	return id, err
 }
 

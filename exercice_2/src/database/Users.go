@@ -27,7 +27,7 @@ type LoginResponse struct {
 	UserList []User
 }
 
-// NewUser inserts new user and returns newly created UserID
+// NewUser inserts new user and returns a unique newly created UserID
 func NewUser(name string, ip net.IP, port string) UserID {
 	var id UserID
 	err := DB.QueryRow("INSERT INTO users (username, ip, port) VALUES ($1, $2, $3) RETURNING id", name, ip.String(), port).Scan(&id)
