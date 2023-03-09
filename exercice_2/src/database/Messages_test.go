@@ -70,7 +70,7 @@ func TestNewMessage(t *testing.T) {
 		t.Fatal("Failed to initialise test database: ", err)
 	}
 
-	for k := 5; k < nbNewUsers; k++ {
+	for k := 0; k < nbNewUsers; k++ {
 		randomMessage := RandomMessage(MessageID(0), UserID(0), UserID(0), nbMaxCharMessage)
 		mock.
 			ExpectQuery("INSERT INTO messages (.+) RETURNING id").
