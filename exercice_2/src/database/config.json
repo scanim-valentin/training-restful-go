@@ -1,6 +1,6 @@
 {
     "username": "postgres",
     "password": "PassWord",
-    "ip" : "localhost:5432",
+    "ip" : "172.17.0.1:5432",
     "name" : "postgres"
 }

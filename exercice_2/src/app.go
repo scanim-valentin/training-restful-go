@@ -12,6 +12,7 @@ import (
 )
 
 var Port string = "3001"
+var IP string = "0.0.0.0"
 
 func main() {
 	// Setting up routes
@@ -29,5 +30,5 @@ func main() {
 	// Starting server
 	fmt.Println("Starting server on port ", Port)
 	handler := handlers.CORS(originsOk, headersOk, methodsOk)(router.APIRouter)
-	log.Fatal(http.ListenAndServe(":"+Port, handler))
+	log.Fatal(http.ListenAndServe(IP+":"+Port, handler))
 }

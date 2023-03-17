@@ -35,7 +35,6 @@ func ConnectDB(path string) {
 	if err != nil {
 		log.Fatal("Error when opening file: ", err)
 	}
-	fmt.Println(json.Valid(content))
 	// Now let's unmarshall the data into `payload`
 	payload := map[string]string{}
 	err = json.Unmarshal(content, &payload)
@@ -47,15 +46,19 @@ func ConnectDB(path string) {
 	if err != nil {
 		log.Fatal("Error while opening DB: ", err)
 	}
-	fmt.Println("Successfully connected to ", connect)
+	err = DB.Ping()
+	if err != nil {
+		log.Fatal("Error while trying to reach DB: ", err)
+	}
+	fmt.Println("Ping OK -> ", connect)
 	_, err = DB.Exec("CREATE TABLE IF NOT EXISTS users (id serial primary key, username text, ip inet, port int )")
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("Error when building database (CREATE TABLE IF NOT EXISTS users (id serial primary key, username text, ip inet, port int )) ",err)
 	}
 	fmt.Println("Successfully created or detected table 'user'")
 	_, err = DB.Exec("CREATE TABLE IF NOT EXISTS messages (id serial primary key, source integer, destination integer, content text, time timestamp)")
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("Error when building database CREATE TABLE IF NOT EXISTS messages (id serial primary key, source integer, destination integer, content text, time timestamp) ",err)
 	}
 	fmt.Println("Successfully created or detected table 'messages'")
 }

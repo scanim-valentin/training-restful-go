@@ -1,0 +1,21 @@
+services:
+  api:
+    depends_on:
+      - db
+    build: ./src
+    ports: 
+      - 3001:3001
+    
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: PassWord
+      # POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - 5432:5432
+  front:
+    ports: 
+      - 3000:3000
+    build: ./front/app

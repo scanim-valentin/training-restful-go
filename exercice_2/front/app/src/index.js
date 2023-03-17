@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import * as model from './model.js'
 import * as database from './database.js'
+// const IP = '0.0.0.0'
 const IP = 'localhost'
 const Port = '3001'
 const CreatedStatusCode = 201
