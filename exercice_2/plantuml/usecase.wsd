@@ -1,0 +1,19 @@
+@startuml usecase_application
+
+left to right direction
+:User: as user
+    
+rectangle "Application"{
+    user--(Sign up)
+    user--(Sign in)
+    user--(Logout)
+    user--(Change status)
+    user--(See conversation history with contact)
+    user--(See conversation history in group)
+    user--(Add / Remove user as contact)
+    user--(Block user)
+    user--(Create / Join / Remove group)
+    user--(Add / Remove user to group)
+    user--(Send direct message)
+    user--(Send group message)
+}

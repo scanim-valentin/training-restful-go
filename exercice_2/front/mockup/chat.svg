@@ -1,0 +1,733 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="1920"
+   height="1080"
+   viewBox="0 0 508 285.75"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   sodipodi:docname="chat.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="false"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     showborder="false"
+     inkscape:lockguides="false"
+     showguides="true"
+     inkscape:zoom="0.37549453"
+     inkscape:cx="1142.4933"
+     inkscape:cy="880.17261"
+     inkscape:window-width="1920"
+     inkscape:window-height="1001"
+     inkscape:window-x="2391"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g1452">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2034" />
+  </sodipodi:namedview>
+  <defs
+     id="defs2">
+    <rect
+       x="38.948637"
+       y="109.18934"
+       width="225.70236"
+       height="41.611791"
+       id="rect2789" />
+    <rect
+       x="38.948635"
+       y="109.18934"
+       width="357.99258"
+       height="40.670223"
+       id="rect2789-5" />
+    <rect
+       x="38.948635"
+       y="109.18934"
+       width="357.99258"
+       height="40.670223"
+       id="rect2789-5-6" />
+    <rect
+       x="38.948635"
+       y="109.18934"
+       width="225.70236"
+       height="41.61179"
+       id="rect2789-3" />
+    <rect
+       x="38.948635"
+       y="109.18934"
+       width="830.90495"
+       height="58.721031"
+       id="rect2789-5-4" />
+    <rect
+       x="38.948635"
+       y="109.18934"
+       width="357.99258"
+       height="40.670223"
+       id="rect2789-5-6-6" />
+    <rect
+       x="38.948635"
+       y="109.18934"
+       width="225.70236"
+       height="41.61179"
+       id="rect2789-53" />
+    <rect
+       x="38.948635"
+       y="109.18934"
+       width="357.99258"
+       height="40.670223"
+       id="rect2789-5-61" />
+    <rect
+       x="38.948635"
+       y="109.18934"
+       width="357.99258"
+       height="40.670223"
+       id="rect2789-5-6-8" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g1452"
+       transform="translate(-4.1105194,6.0532466)">
+      <rect
+         style="fill:#b3b3b3;stroke-width:0.236749"
+         id="rect1570"
+         width="275.03186"
+         height="254.25873"
+         x="109.73869"
+         y="22.691757"
+         ry="11.145602" />
+      <g
+         id="g1584">
+        <g
+           id="g1575"
+           transform="translate(-4.7625002)">
+          <rect
+             style="fill:#333333;stroke-width:0.297006"
+             id="rect1429"
+             width="28.142935"
+             height="18.684227"
+             x="352.66879"
+             y="241.36298"
+             ry="5.6897626" />
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8.46667px;font-family:'Agency FB';-inkscape-font-specification:'Agency FB Bold';fill:#333333;stroke-width:0.264583"
+             x="358.40091"
+             y="253.32578"
+             id="text1433"><tspan
+               sodipodi:role="line"
+               id="tspan1431"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB';fill:#ffffff;stroke-width:0.264583"
+               x="358.40091"
+               y="253.32578">Send</tspan></text>
+        </g>
+        <rect
+           style="fill:#ffffff;stroke-width:0.242755"
+           id="rect1542"
+           width="222.71599"
+           height="43.347404"
+           x="121.19834"
+           y="227.9606"
+           ry="9.9955893" />
+        <text
+           xml:space="preserve"
+           style="font-size:8.46667px;fill:#333333;stroke-width:0.264583"
+           x="133.68217"
+           y="245.14703"
+           id="text987-4"><tspan
+             sodipodi:role="line"
+             id="tspan985-6"
+             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8.46667px;font-family:'Agency FB';-inkscape-font-specification:'Agency FB Bold';fill:#333333;stroke-width:0.264583"
+             x="133.68217"
+             y="245.14703">This is a message|</tspan></text>
+      </g>
+      <rect
+         style="fill:#e6e6e6;stroke-width:0.30494"
+         id="rect1544"
+         width="95.178925"
+         height="147.48795"
+         x="9.5163498"
+         y="2.9462962"
+         ry="10.566736" />
+      <rect
+         style="fill:#e6e6e6;stroke-width:0.460932"
+         id="rect1544-5"
+         width="117.02234"
+         height="274.07785"
+         x="389.49689"
+         y="2.4133816"
+         ry="19.636238" />
+      <rect
+         style="fill:#e6e6e6;stroke-width:0.275156"
+         id="rect1544-9"
+         width="95.178925"
+         height="120.08441"
+         x="9.4102707"
+         y="155.71864"
+         ry="8.6034174" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB';fill:#666666;stroke-width:0.264583"
+         x="41.981148"
+         y="13.460167"
+         id="text1701"><tspan
+           sodipodi:role="line"
+           id="tspan1699"
+           style="fill:#666666;stroke-width:0.264583"
+           x="41.981148"
+           y="13.460167">Contacts</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB';fill:#666666;stroke-width:0.264583"
+         x="44.549843"
+         y="165.50726"
+         id="text1701-2"><tspan
+           sodipodi:role="line"
+           id="tspan1699-5"
+           style="fill:#666666;stroke-width:0.264583"
+           x="44.549843"
+           y="165.50726">Groups</tspan></text>
+      <rect
+         style="fill:#ececec;stroke:#aaaaaa;stroke-width:0.278;stroke-dasharray:none;stroke-opacity:1;stroke-linecap:round"
+         id="rect2010"
+         width="92.455795"
+         height="17.687735"
+         x="10.045516"
+         y="19.528574"
+         ry="0" />
+      <g
+         aria-label="Béatrice"
+         transform="matrix(0.26458333,0,0,0.26458333,-0.20531686,-0.16086395)"
+         id="text2787"
+         style="font-size:32px;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB';white-space:pre;shape-inside:url(#rect2789);stroke-width:1.05071;stroke-linecap:round">
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:32px;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB';fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.05071;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+           x="44.274948"
+           y="118.75648"
+           id="text4356"><tspan
+             sodipodi:role="line"
+             id="tspan4354"
+             x="44.274948"
+             y="118.75648"> Dositheos Ivo </tspan></text>
+      </g>
+      <g
+         aria-label="Béatrice"
+         transform="matrix(0.26458333,0,0,0.26458333,406.74975,-10.83597)"
+         id="text2787-2"
+         style="font-size:32px;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB';white-space:pre;shape-inside:url(#rect2789);stroke-width:1.05071;stroke-linecap:round">
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:48px;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB';fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.05071;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+           x="21.100971"
+           y="107.45767"
+           id="text4356-7"><tspan
+             sodipodi:role="line"
+             id="tspan4354-3"
+             x="21.100971"
+             y="107.45767"
+             style="font-size:48px"> Dositheos Ivo </tspan></text>
+      </g>
+      <ellipse
+         style="fill:#008000;fill-opacity:1;stroke:none;stroke-width:0.278;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         id="path3134"
+         cx="93.069595"
+         cy="28.37244"
+         rx="3.7227778"
+         ry="3.4437041" />
+      <rect
+         style="fill:#ececec;stroke:#aaaaaa;stroke-width:0.165864;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         id="rect2010-7"
+         width="48.564381"
+         height="11.986703"
+         x="280.28351"
+         y="6.1158152"
+         ry="0" />
+      <ellipse
+         style="fill:#008000;fill-opacity:1;stroke:none;stroke-width:0.278;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         id="path3134-7"
+         cx="319.36011"
+         cy="12.109164"
+         rx="3.7227778"
+         ry="3.4437041" />
+      <rect
+         style="fill:#ececec;stroke:#aaaaaa;stroke-width:0.278;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         id="rect2010-1"
+         width="92.455795"
+         height="17.687735"
+         x="10.045516"
+         y="37.494308"
+         ry="0" />
+      <ellipse
+         style="fill:#008000;fill-opacity:1;stroke:none;stroke-width:0.278;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         id="path3134-2"
+         cx="93.06958"
+         cy="46.338177"
+         rx="3.7227778"
+         ry="3.4437041" />
+      <rect
+         style="fill:#ececec;stroke:#aaaaaa;stroke-width:0.278;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         id="rect2010-0"
+         width="92.455795"
+         height="17.687735"
+         x="10.045516"
+         y="55.460045"
+         ry="0" />
+      <ellipse
+         style="fill:#d40000;fill-opacity:1;stroke:none;stroke-width:0.278;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         id="path3134-8"
+         cx="93.069588"
+         cy="64.303909"
+         rx="3.7227778"
+         ry="3.4437041" />
+      <rect
+         style="fill:#ececec;stroke:#aaaaaa;stroke-width:0.278;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         id="rect2010-1-0"
+         width="92.455795"
+         height="17.687735"
+         x="10.045516"
+         y="73.425781"
+         ry="0" />
+      <ellipse
+         style="fill:#008000;fill-opacity:1;stroke:none;stroke-width:0.278;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         id="path3134-2-0"
+         cx="93.069572"
+         cy="82.269653"
+         rx="3.7227778"
+         ry="3.4437041" />
+      <rect
+         style="fill:#ececec;stroke:#aaaaaa;stroke-width:0.278;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         id="rect2010-9"
+         width="92.455795"
+         height="17.687735"
+         x="10.045516"
+         y="91.391518"
+         ry="0" />
+      <ellipse
+         style="fill:#ffcc00;fill-opacity:1;stroke:none;stroke-width:0.278;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         id="path3134-80"
+         cx="93.069595"
+         cy="100.23538"
+         rx="3.7227778"
+         ry="3.4437041" />
+      <rect
+         style="fill:#ececec;stroke:#aaaaaa;stroke-width:0.278;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         id="rect2010-1-7"
+         width="92.455795"
+         height="17.687735"
+         x="10.045516"
+         y="109.35725"
+         ry="0" />
+      <ellipse
+         style="fill:none;fill-opacity:1;stroke:#aaaaaa;stroke-width:0.278;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         id="path3134-2-09"
+         cx="93.06958"
+         cy="118.20112"
+         rx="3.7227778"
+         ry="3.4437041" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB';fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.278;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         x="11.230258"
+         y="49.014599"
+         id="text5090"><tspan
+           sodipodi:role="line"
+           style="stroke-width:0.278"
+           x="11.230258"
+           y="49.014599"
+           id="tspan8012"> DeMarcus Frances</tspan></text>
+      <rect
+         style="fill:#ececec;stroke:#aaaaaa;stroke-width:0.310639;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         id="rect2010-09"
+         width="115.65334"
+         height="17.655096"
+         x="390.1814"
+         y="24.64427"
+         ry="0" />
+      <rect
+         style="fill:#999999;fill-opacity:1;stroke:none;stroke-width:0.221031;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         id="rect9051"
+         width="275.03186"
+         height="20.559969"
+         x="109.73869"
+         y="42.454685"
+         ry="0" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB';white-space:pre;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.278;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         x="391.62863"
+         y="36.359497"
+         id="text4356-6"><tspan
+           sodipodi:role="line"
+           id="tspan4354-9"
+           x="391.62863"
+           y="36.359497"
+           style="stroke-width:0.278"> Dositheos Ivo </tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:32px;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB';white-space:pre;shape-inside:url(#rect2789);fill:#4d4d4d;fill-opacity:1;stroke:none;stroke-width:1.05071;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         x="44.274948"
+         y="118.75648"
+         id="text4356-6-0"
+         transform="matrix(0.26458333,0,0,0.26458333,101.02263,18.588367)"><tspan
+           x="38.949219"
+           y="139.27564"
+           id="tspan9767"> Dositheos Ivo </tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:32px;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB';white-space:pre;shape-inside:url(#rect2789-5);fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.05071;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         x="44.274948"
+         y="118.75648"
+         id="text4356-6-0-2"
+         transform="matrix(0.26458333,0,0,0.26458333,154.62181,18.588367)"><tspan
+           x="38.949219"
+           y="139.27564"
+           id="tspan9769">Hello this is a message</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:32px;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB';white-space:pre;shape-inside:url(#rect2789-5-6);fill:#333333;fill-opacity:1;stroke:none;stroke-width:1.05071;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         x="44.274948"
+         y="118.75648"
+         id="text4356-6-0-2-6"
+         transform="matrix(0.13229168,0,0,0.13229168,108.32542,28.544132)"><tspan
+           x="38.949219"
+           y="139.27564"
+           id="tspan9771">Today at 4:20PM</tspan></text>
+      <rect
+         style="fill:#999999;fill-opacity:1;stroke:none;stroke-width:0.221031;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         id="rect9051-6"
+         width="275.03186"
+         height="20.559969"
+         x="109.73869"
+         y="63.014656"
+         ry="0" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:32px;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB';white-space:pre;shape-inside:url(#rect2789-3);fill:#4d4d4d;fill-opacity:1;stroke:none;stroke-width:1.05071;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         x="44.274948"
+         y="118.75648"
+         id="text4356-6-0-6"
+         transform="matrix(0.26458333,0,0,0.26458333,101.02263,39.148338)"><tspan
+           x="38.949219"
+           y="139.27564"
+           id="tspan9773"> Dositheos Ivo </tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:32px;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB';white-space:pre;shape-inside:url(#rect2789-5-4);fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.05071;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         x="44.274948"
+         y="118.75648"
+         id="text4356-6-0-2-5"
+         transform="matrix(0.26458333,0,0,0.26458333,154.62181,39.148338)"><tspan
+           x="38.949219"
+           y="139.27564"
+           id="tspan9775">Hello this another is a message</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:32px;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB';white-space:pre;shape-inside:url(#rect2789-5-6-6);fill:#333333;fill-opacity:1;stroke:none;stroke-width:1.05071;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         x="44.274948"
+         y="118.75648"
+         id="text4356-6-0-2-6-0"
+         transform="matrix(0.13229168,0,0,0.13229168,108.32542,49.104103)"><tspan
+           x="38.949219"
+           y="139.27564"
+           id="tspan9777">Today at 4:21PM</tspan></text>
+      <ellipse
+         style="fill:#008000;fill-opacity:1;stroke:none;stroke-width:0.278;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         id="path3134-0"
+         cx="481.99698"
+         cy="33.471817"
+         rx="3.7227778"
+         ry="3.4437041" />
+      <rect
+         style="fill:#ececec;stroke:#aaaaaa;stroke-width:0.310639;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         id="rect2010-1-4"
+         width="115.65335"
+         height="17.655096"
+         x="390.1814"
+         y="42.610001"
+         ry="0" />
+      <ellipse
+         style="fill:#008000;fill-opacity:1;stroke:none;stroke-width:0.278;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         id="path3134-2-8"
+         cx="481.99698"
+         cy="51.43755"
+         rx="3.7227778"
+         ry="3.4437041" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB';fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.278;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         x="391.34982"
+         y="54.113972"
+         id="text5090-6"><tspan
+           sodipodi:role="line"
+           style="stroke-width:0.278"
+           x="391.34982"
+           y="54.113972"
+           id="tspan8012-9"> DeMarcus Frances <tspan
+   style="font-size:7.05556px;fill:#333333"
+   id="tspan9049">(you)</tspan></tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB';fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.278;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         x="11.86141"
+         y="66.74427"
+         id="text5820"><tspan
+           sodipodi:role="line"
+           id="tspan5818"
+           style="stroke-width:0.278"
+           x="11.86141"
+           y="66.74427"> Ramesses Ritva </tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB';fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.278;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         x="11.156786"
+         y="84.527687"
+         id="text6550"><tspan
+           sodipodi:role="line"
+           id="tspan6548"
+           style="stroke-width:0.278"
+           x="11.156786"
+           y="84.527687"> Martialis Sophronia </tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB';fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.278;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         x="11.156786"
+         y="102.67039"
+         id="text7280"><tspan
+           sodipodi:role="line"
+           id="tspan7278"
+           style="stroke-width:0.278"
+           x="11.156786"
+           y="102.67039"> Djehutimesu Kolya </tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB';fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.278;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         x="11.332942"
+         y="120.56089"
+         id="text8010"><tspan
+           sodipodi:role="line"
+           id="tspan8008"
+           style="stroke-width:0.278"
+           x="11.332942"
+           y="120.56089"> Ljuban Zsigmond </tspan></text>
+      <rect
+         style="fill:#ececec;stroke:#aaaaaa;stroke-width:0.278;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         id="rect2010-1-7-8"
+         width="92.455795"
+         height="17.687735"
+         x="10.045509"
+         y="170.81766"
+         ry="0" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB';fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.278;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         x="11.332935"
+         y="182.0213"
+         id="text8010-1"><tspan
+           sodipodi:role="line"
+           id="tspan8008-6"
+           style="stroke-width:0.278"
+           x="11.332935"
+           y="182.0213"> Dream Team </tspan></text>
+      <rect
+         style="fill:#ececec;stroke:#aaaaaa;stroke-width:0.278;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         id="rect2010-1-7-8-1"
+         width="92.455795"
+         height="17.687735"
+         x="10.045509"
+         y="188.74266"
+         ry="0" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB';fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.278;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         x="11.332935"
+         y="199.9463"
+         id="text8010-1-0"><tspan
+           sodipodi:role="line"
+           id="tspan8008-6-9"
+           style="stroke-width:0.278"
+           x="11.332935"
+           y="199.9463"> Secret Project </tspan></text>
+      <rect
+         style="fill:#4d4d4d;fill-opacity:1;stroke:none;stroke-width:0.278;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         id="rect8289"
+         width="48.76738"
+         height="11.957905"
+         x="30.522146"
+         y="135.35431"
+         ry="3.3631608" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB';fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.278;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         x="33.008793"
+         y="143.54515"
+         id="text8499"><tspan
+           sodipodi:role="line"
+           id="tspan8497"
+           style="fill:#ffffff;stroke-width:0.278"
+           x="33.008793"
+           y="143.54515">New contact</tspan></text>
+      <rect
+         style="fill:#4d4d4d;fill-opacity:1;stroke:none;stroke-width:0.266725;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         id="rect8289-2"
+         width="44.891933"
+         height="11.957905"
+         x="31.983076"
+         y="259.54083"
+         ry="3.3631608" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB';fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.278;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         x="34.601822"
+         y="267.73166"
+         id="text8499-5"><tspan
+           sodipodi:role="line"
+           id="tspan8497-7"
+           style="fill:#ffffff;stroke-width:0.278"
+           x="34.601822"
+           y="267.73166">New group</tspan></text>
+      <g
+         id="g9644"
+         transform="translate(-0.9529953)">
+        <rect
+           style="fill:#4d4d4d;fill-opacity:1;stroke:none;stroke-width:0.415644;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+           id="rect8289-2-3"
+           width="109.01463"
+           height="11.957905"
+           x="394.45374"
+           y="251.6161"
+           ry="3.3631608" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB';fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.278;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+           x="395.90173"
+           y="259.80679"
+           id="text8499-5-60"><tspan
+             sodipodi:role="line"
+             id="tspan8497-7-07"
+             style="fill:#ffffff;stroke-width:0.278"
+             x="395.90173"
+             y="259.80679">Add contact and create group</tspan></text>
+      </g>
+      <rect
+         style="fill:#4d4d4d;fill-opacity:1;stroke:none;stroke-width:0.23021;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         id="rect8289-2-0"
+         width="33.441757"
+         height="11.957905"
+         x="342.49298"
+         y="2.7483985"
+         ry="3.3631608" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB';fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.278;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         x="346.16867"
+         y="11.034293"
+         id="text8499-5-6"><tspan
+           sodipodi:role="line"
+           id="tspan8497-7-0"
+           style="fill:#ff0000;stroke-width:0.278"
+           x="346.16867"
+           y="11.034293">Logout</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB';fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.278;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         x="115.79379"
+         y="5.1704521"
+         id="text8585"><tspan
+           sodipodi:role="line"
+           id="tspan8583"
+           style="fill:#000000;stroke-width:0.278"
+           x="115.79379"
+           y="5.1704521">Connected as <tspan
+   style="font-size:9.87778px"
+   id="tspan8824">Pauline Aparna</tspan></tspan><tspan
+           sodipodi:role="line"
+           style="fill:#000000;stroke-width:0.278"
+           x="115.79379"
+           y="18.844393"
+           id="tspan8826"><tspan
+             style="font-size:9.87778px"
+             id="tspan8828"><tspan
+   style="font-size:8.46667px"
+   id="tspan8830">ID</tspan> <tspan
+   style="font-size:11.2889px"
+   id="tspan8834">8756</tspan> </tspan></tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB';fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.278;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         x="283.07077"
+         y="5.1371579"
+         id="text8585-6"><tspan
+           sodipodi:role="line"
+           id="tspan8583-8"
+           style="font-size:7.05556px;fill:#000000;stroke-width:0.278"
+           x="283.07077"
+           y="5.1371579">Change Status</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB';fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.278;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         x="286.04922"
+         y="15.013383"
+         id="text8585-6-3"><tspan
+           sodipodi:role="line"
+           id="tspan8583-8-7"
+           style="fill:#000000;stroke-width:0.278"
+           x="286.04922"
+           y="15.013383">Online</tspan></text>
+      <rect
+         style="fill:#cccccc;fill-opacity:1;stroke:none;stroke-width:0.221031;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         id="rect9051-7"
+         width="275.03186"
+         height="20.559969"
+         x="109.73869"
+         y="83.574623"
+         ry="0" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:32px;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB';white-space:pre;shape-inside:url(#rect2789-53);display:inline;fill:#4d4d4d;fill-opacity:1;stroke:none;stroke-width:1.05071;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         x="44.274948"
+         y="118.75648"
+         id="text4356-6-0-7"
+         transform="matrix(0.26458333,0,0,0.26458333,101.02263,59.708307)"><tspan
+           x="38.949219"
+           y="139.27564"
+           id="tspan9779"> You</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:32px;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB';white-space:pre;shape-inside:url(#rect2789-5-61);display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.05071;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         x="44.274948"
+         y="118.75648"
+         id="text4356-6-0-2-7"
+         transform="matrix(0.26458333,0,0,0.26458333,154.62181,59.708307)"><tspan
+           x="38.949219"
+           y="139.27564"
+           id="tspan9781">Hello this is a message</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:32px;font-family:'Berlin Sans FB';-inkscape-font-specification:'Berlin Sans FB';white-space:pre;shape-inside:url(#rect2789-5-6-8);display:inline;fill:#333333;fill-opacity:1;stroke:none;stroke-width:1.05071;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+         x="44.274948"
+         y="118.75648"
+         id="text4356-6-0-2-6-1"
+         transform="matrix(0.13229168,0,0,0.13229168,108.32542,69.664072)"><tspan
+           x="38.949219"
+           y="139.27564"
+           id="tspan9783">Today at 4:21PM</tspan></text>
+    </g>
+  </g>
+</svg>

@@ -1,25 +1,58 @@
 @startuml db_class 
 
-' time + source_id (foreign) + destination_id (foreign) could be a primary key
 entity messages{
     message_id : int64
     __
     time : Time
-    source_id : user_id
-    destination_id : user_id
+    sourceID : int64
+    groupID : int64
     content : string
 }
 
-entity users{
-    user_id : int64
+entity contacts{
+    userID1 : int64
+    userID2 : int64
+}
+
+entity blocked{
+    userID1 : int64
+    userID2 : int64
+}
+
+entity usersToGroups{
+    groupID : int64
+    userID : int64
+}
+
+entity groups{
+    groupID : int64
     __
     name : string
-    password : [254]byte
-    address : IP
-    port: int
+}
+
+entity users{
+    userID : int64
+    __
+    name : string
+    password : string
+    status : status
+}
+
+enum status {
+    "online"
+    "offline"
+    "busy"
+    "away"
 }
 
 
-messages "0..*" -- "2" users
+messages "0..*" -- "1" users
+messages "0..*" -- "1" groups
+
+contacts "0..*" *-- "2" users
+blocked "0..*" *-- "2" users
+status "1" -- "0..*" users
+usersToGroups "1..*" *-- "1" users
+usersToGroups "1..*" *-- "1" groups
 
 @enduml
