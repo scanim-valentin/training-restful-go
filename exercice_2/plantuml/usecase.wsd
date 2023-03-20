@@ -1,4 +1,4 @@
-@startuml usecase_application
+@startuml usecase
 
 left to right direction
 :User: as user
@@ -17,3 +17,5 @@ rectangle "Application"{
     user--(Send direct message)
     user--(Send group message)
 }
+
+@enduml
