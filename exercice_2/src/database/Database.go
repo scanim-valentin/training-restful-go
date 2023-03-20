@@ -51,14 +51,27 @@ func ConnectDB(path string) {
 		log.Fatal("Error while trying to reach DB: ", err)
 	}
 	fmt.Println("Ping OK -> ", connect)
-	_, err = DB.Exec("CREATE TABLE IF NOT EXISTS users (id serial primary key, username text, ip inet, port int )")
+
+	_, err = DB.Exec("CREATE TYPE IF NOT EXISTS status AS ENUM ('online', 'offline', 'busy', 'away'); ")
 	if err != nil {
-		log.Fatal("Error when building database (CREATE TABLE IF NOT EXISTS users (id serial primary key, username text, ip inet, port int )) ",err)
+		log.Fatal("Error when building database CREATE TYPE status", err)
 	}
-	fmt.Println("Successfully created or detected table 'user'")
-	_, err = DB.Exec("CREATE TABLE IF NOT EXISTS messages (id serial primary key, source integer, destination integer, content text, time timestamp)")
+	fmt.Println("Successfully created or detected type status")
+
+	initTable("users (id serial primary key, username text, status status )")
+	initTable("messages (id serial primary key, userid integer, groupid integer, content text, time timestamp)")
+	initTable("groups (id serial primary key, name text)")
+	initTable("contacts (userid1 integer, userid2 integer)")
+	initTable("blocked (userid1 integer, userid2 integer)")
+	initTable("usersToGroups (groupid integer, userid integer)")
+	
+	
+}
+
+func initTable(table string) {
+	_, err := DB.Exec("CREATE TABLE IF NOT EXISTS "+table)
 	if err != nil {
-		log.Fatal("Error when building database CREATE TABLE IF NOT EXISTS messages (id serial primary key, source integer, destination integer, content text, time timestamp) ",err)
+		log.Fatal("Error when building database CREATE TABLE IF NOT EXISTS "+table, err)
 	}
-	fmt.Println("Successfully created or detected table 'messages'")
+	fmt.Println("Successfully created or detected table  "+table)
 }

@@ -21,7 +21,7 @@ func main() {
 	//Setting up database
 	database.Setup()
 	defer database.Close()
-
+/*
 	//CORS
 	headersOk := handlers.AllowedHeaders([]string{"Content-Types"})
 	originsOk := handlers.AllowedOrigins([]string{"*"})
@@ -31,4 +31,5 @@ func main() {
 	fmt.Println("Starting server on port ", Port)
 	handler := handlers.CORS(originsOk, headersOk, methodsOk)(router.APIRouter)
 	log.Fatal(http.ListenAndServe(IP+":"+Port, handler))
+	*/
 }

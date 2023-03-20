@@ -15,7 +15,7 @@ services:
       # POSTGRES_HOST_AUTH_METHOD: trust
     ports:
       - 5432:5432
-  front:
-    ports: 
-      - 3000:3000
-    build: ./front/app
+#  front:
+#    ports: 
+#      - 3000:3000
+#    build: ./front/app
