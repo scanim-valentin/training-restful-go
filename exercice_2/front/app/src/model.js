@@ -41,7 +41,7 @@ export function RadioSelectList(props) {
   }
   
   /**
-   * Hook that allows the user to select a form in a list and render it dynamically
+   * Hook that allows the users to select a form in a list and render it dynamically
    * @param {map} props Should have:
    * - elements: list of pair id string: {'label': string, 'form': form }
    */

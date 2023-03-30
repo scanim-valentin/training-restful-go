@@ -146,7 +146,7 @@ function ChatArea(props) {
 
   const [init_conv, setConv] = useState([])
   useEffect(() => {
-    /*For some reasons this is necessary to reset the state values when switching from one user to another*/
+    /*For some reasons this is necessary to reset the state values when switching from one users to another*/
     setMessage({})
     setNewConversation([])
     setConv([])

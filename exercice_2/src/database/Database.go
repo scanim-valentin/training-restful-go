@@ -9,13 +9,19 @@ import (
 	"os"
 )
 
+const (
+	DBPath          string = "database/config.json"
+	LocalhostDBPath string = "database/config_localhost.json"
+	TestDBPath      string = "../../database/config_test.json"
+)
+
 var DB *sql.DB = nil
 
 // const Connect = fmt.Sprintf("postgresql://%s:%s@%s/%s?sslmode=disable", DB_username, DB_password, DB_ip, DB_name)
 
 // Setup connects to database (DB should not be nil)  */
 func Setup() {
-	ConnectDB("database/config.json")
+	ConnectDB(LocalhostDBPath)
 }
 
 // Close should be called before closing service */
@@ -52,26 +58,36 @@ func ConnectDB(path string) {
 	}
 	fmt.Println("Ping OK -> ", connect)
 
-	_, err = DB.Exec("CREATE TYPE IF NOT EXISTS status AS ENUM ('online', 'offline', 'busy', 'away'); ")
+	_, err = DB.Exec("DO $$ BEGIN\n    CREATE TYPE status AS ENUM ('online', 'offline', 'busy', 'away');\nEXCEPTION\n    WHEN duplicate_object THEN null;\nEND $$;")
+
 	if err != nil {
-		log.Fatal("Error when building database CREATE TYPE status", err)
+		log.Fatal("Error when building database CREATE TYPE status ", err)
 	}
 	fmt.Println("Successfully created or detected type status")
 
 	initTable("users (id serial primary key, username text, status status )")
 	initTable("messages (id serial primary key, userid integer, groupid integer, content text, time timestamp)")
 	initTable("groups (id serial primary key, name text)")
-	initTable("contacts (userid1 integer, userid2 integer)")
-	initTable("blocked (userid1 integer, userid2 integer)")
+	initTable("contacts (UserID integer, ContactID integer)")
+	initTable("blocked (UserID integer, BlockedID integer)")
 	initTable("usersToGroups (groupid integer, userid integer)")
-	
-	
+
 }
 
 func initTable(table string) {
-	_, err := DB.Exec("CREATE TABLE IF NOT EXISTS "+table)
+	_, err := DB.Exec("CREATE TABLE IF NOT EXISTS " + table)
 	if err != nil {
 		log.Fatal("Error when building database CREATE TABLE IF NOT EXISTS "+table, err)
 	}
-	fmt.Println("Successfully created or detected table  "+table)
+	fmt.Println("Successfully created or detected table  " + table)
+}
+func DropAllTables() {
+	tables := []string{"users", "messages", "groups", "contacts", "blocked", "usersToGroups"}
+	for _, table := range tables {
+		_, err := DB.Exec("DROP TABLE " + table)
+		if err != nil {
+			log.Fatal("Error when dropping table "+table, err)
+		}
+		fmt.Println("Successfully dropped table  " + table)
+	}
 }

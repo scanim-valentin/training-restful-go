@@ -28,7 +28,7 @@ function signin(id) {
 }
 
 describe('Login tests', () => {
-  it('LT1: Signing up as user "name" and saving newly created unique ID', () => {
+  it('LT1: Signing up as users "name" and saving newly created unique ID', () => {
     signup(UserName)
     cy.get('[id="idPanel"]')
         .should('have.attr', 'uniqueid')
@@ -45,7 +45,7 @@ describe('Login tests', () => {
 describe("Chatting frame tests: ", () => {
   // Chatting frame
 
-  it('C1.1: Checking for user list (Registering friend)', () => {
+  it('C1.1: Checking for users list (Registering friend)', () => {
     signup(FriendName)
     cy.get('[id="idPanel"]')
         .should('have.attr', 'uniqueid')
@@ -53,7 +53,7 @@ describe("Chatting frame tests: ", () => {
           FriendID = uniqueid
         })
   })
-  it('C1.2: Checking for user list (Selecting friend)', () => {
+  it('C1.2: Checking for users list (Selecting friend)', () => {
     signin(UserID)
     cy.get('[value="'+FriendID+'"]')
         .click()

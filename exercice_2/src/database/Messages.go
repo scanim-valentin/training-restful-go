@@ -13,22 +13,19 @@ type MessageID int
 // MessageContent This could change in the future
 type MessageContent string
 
-// Message A message contains the source user, the destination user and a message body
+// Message A message contains the source users, the destination users and a message body
 type Message struct {
-	ID                  MessageID
-	Source, Destination UserID
-	Content             MessageContent
-	Time                time.Time
-}
-
-// Conversation is returned after selecting user to talk to
-type Conversation struct {
-	Messages []Message
+	ID      MessageID
+	User    UserID
+	Group   GroupID
+	Content MessageContent
+	Time    time.Time
 }
 
 // GetMessages retrieves a conversation between two users
-func GetMessages(user UserID, other UserID) []Message {
-	rows, err := DB.Query("SELECT * FROM messages WHERE source = $1 AND destination = $2 OR source = $2 AND destination = $1 ORDER BY time ASC", user, other)
+func GetMessages(other GroupID) ([]Message, error) {
+	// TODO handle blocked users (censored message content)
+	rows, err := DB.Query("SELECT * FROM messages WHERE groupid = $1 ORDER BY time ASC", other)
 	if err != nil {
 		log.Panic(err)
 	}
@@ -43,30 +40,38 @@ func GetMessages(user UserID, other UserID) []Message {
 	// Reading rows
 	for rows.Next() {
 		var message Message
-		if err := rows.Scan(&message.ID, &message.Source, &message.Destination, &message.Content, &message.Time); err != nil {
+		if err := rows.Scan(&message.ID, &message.User, &message.Group, &message.Content, &message.Time); err != nil {
 			break
 		}
 		messages = append(messages, message)
 	}
-	return messages
+	if err = rows.Err(); err != nil {
+		log.Println("Error in rows: ", err)
+	}
+	return messages, err
 }
 
 // NewMessage adds a new message to the messages table
-func NewMessage(source UserID, destination UserID, content MessageContent, time time.Time) (MessageID, error) {
+func NewMessage(message Message) (MessageID, error) {
 	var id MessageID
-	err := DB.QueryRow("INSERT INTO messages (source, destination, content, time) VALUES ($1, $2, $3, $4) RETURNING id",
-		source, destination, content, time).Scan(&id)
+	err := DB.QueryRow("INSERT INTO messages (userid, groupid, content, time) VALUES ($1, $2, $3, $4) RETURNING id",
+		message.User, message.Group, message.Content, message.Time).Scan(&id)
 	return id, err
+}
+
+func DeleteMessage(messageID MessageID) error {
+	_, err := DB.Exec("DELETE FROM messages WHERE id=$1", messageID)
+	return err
 }
 
 /**/
 
-func RandomMessage(id MessageID, source UserID, destination UserID, nbMaxChar int) Message {
+func RandomMessage(id MessageID, source UserID, destination GroupID, nbMaxChar int) Message {
 	return Message{
-		ID:          id,
-		Source:      source,
-		Destination: destination,
-		Content:     MessageContent(utils.RandomString(nbMaxChar)),
-		Time:        time.Now().UTC().Round(time.Millisecond),
+		ID:      id,
+		User:    source,
+		Group:   destination,
+		Content: MessageContent(utils.RandomString(nbMaxChar)),
+		Time:    time.Now().UTC().Round(time.Millisecond),
 	}
 }

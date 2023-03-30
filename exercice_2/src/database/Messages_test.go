@@ -24,29 +24,29 @@ func TestGetMessages(t *testing.T) {
 	for k := 0; k < nbMessages; k++ {
 		// Randomly deciding whether the message is part of the conversation between 1 and 2
 		if rand.Intn(2) == 0 {
-			source := 1
-			destination := 2
+			user := 1
+			group := 2
 			// Randomly deciding whether the message is from 1 to 2 or from 2 to 1
 			if rand.Intn(2) == 0 {
-				source = 2
-				destination = 1
+				user = 2
+				group = 1
 			}
-			randomMessage = RandomMessage(MessageID(k), UserID(source), UserID(destination), nbMaxCharMessage)
+			randomMessage = RandomMessage(MessageID(k), UserID(user), GroupID(group), nbMaxCharMessage)
 			// Just making sure messages are sent at human-like rate in to preserve the time based order of a conversation
 			randomMessage.Time = randomMessage.Time.Add(time.Duration(k) * time.Second)
 
-			rows.AddRow(k, randomMessage.Source, randomMessage.Destination, randomMessage.Content, randomMessage.Time)
+			rows.AddRow(k, randomMessage.User, randomMessage.Group, randomMessage.Content, randomMessage.Time)
 
 		} else {
-			randomMessage = RandomMessage(MessageID(k), UserID(rand.Intn(nbUser-2)+2), UserID(rand.Intn(nbUser-2)+2), nbMaxCharMessage)
+			randomMessage = RandomMessage(MessageID(k), UserID(rand.Intn(nbUser-2)+2), GroupID(rand.Intn(nbUser-2)+2), nbMaxCharMessage)
 		}
 		// Populating
 		mock.
 			ExpectQuery("INSERT INTO messages (.+)").
-			WithArgs(randomMessage.Source, randomMessage.Destination, randomMessage.Content, randomMessage.Time)
+			WithArgs(randomMessage.User, randomMessage.Group, randomMessage.Content, randomMessage.Time)
 
 		DB.QueryRow("INSERT INTO messages (source, destination, content, time) VALUES ($1, $2, $3, $4)",
-			randomMessage.Source, randomMessage.Destination, randomMessage.Content, randomMessage.Time)
+			randomMessage.User, randomMessage.Group, randomMessage.Content, randomMessage.Time)
 
 	}
 	mock.
@@ -71,12 +71,12 @@ func TestNewMessage(t *testing.T) {
 	}
 
 	for k := 0; k < nbNewUsers; k++ {
-		randomMessage := RandomMessage(MessageID(0), UserID(0), UserID(0), nbMaxCharMessage)
+		randomMessage := RandomMessage(MessageID(0), UserID(0), GroupID(0), nbMaxCharMessage)
 		mock.
 			ExpectQuery("INSERT INTO messages (.+) RETURNING id").
-			WithArgs(randomMessage.Source, randomMessage.Destination, randomMessage.Content, randomMessage.Time).
+			WithArgs(randomMessage.User, randomMessage.Group, randomMessage.Content, randomMessage.Time).
 			WillReturnRows(sqlmock.NewRows([]string{"id"}).AddRow(k))
-		id, err := NewMessage(randomMessage.Source, randomMessage.Destination, randomMessage.Content, randomMessage.Time)
+		id, err := NewMessage(randomMessage.User, randomMessage.Group, randomMessage.Content, randomMessage.Time)
 		fmt.Println("New message ID: ", id)
 		if err != nil {
 			fmt.Println(err)
